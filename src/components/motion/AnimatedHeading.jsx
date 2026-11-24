@@ -1,5 +1,6 @@
 import {m} from 'motion/react';
 import {EASE_OUT_HEADING} from './presets';
+import styles from './AnimatedHeading.module.css';
 
 // Words (or letters) slide up one after another. With `inView` they replay every time the heading
 // enters the viewport; without it they play once on mount (hero headings).
@@ -28,16 +29,14 @@ function triggerProps(inView) {
         : {initial: 'hidden', animate: 'visible'};
 }
 
-const rowStyle = {display: 'flex', flexWrap: 'wrap'};
-
 /** Word by word. `as` is the tag of every word ('h2', 'h4', 'p', ...). */
 export function AnimatedHeading({text, as = 'h2', inView = false}) {
     const Word = m[as];
     return (
-        <m.div style={rowStyle} {...triggerProps(inView)}>
+        <m.div className={styles.row} {...triggerProps(inView)}>
             {text.split(' ').map((word, i) => (
-                <div className='animated-text-box' key={i}>
-                    <Word variants={wordVariants} custom={i} style={{display: 'inline-block', marginRight: 14}}>
+                <div className={styles.wordBox} key={i}>
+                    <Word variants={wordVariants} custom={i} className={styles.word}>
                         {word}
                     </Word>
                 </div>
@@ -46,22 +45,18 @@ export function AnimatedHeading({text, as = 'h2', inView = false}) {
     );
 }
 
-/** Letter by letter (big display headings). */
+/** Letter by letter (big display headings). `className` goes on every letter. */
 export function AnimatedHeadingLetters({text, as = 'h1', inView = false, className}) {
     const Letter = m[as];
+    const letterClass = className ? `${styles.letter} ${className}` : styles.letter;
     let letterIndex = 0;
     return (
-        <m.div style={rowStyle} {...triggerProps(inView)}>
+        <m.div className={styles.row} {...triggerProps(inView)}>
             {text.split(' ').map((word, w) => (
-                <div key={w} className='word-container' style={{display: 'flex', marginRight: '1.5em', overflow: 'hidden'}}>
+                <div key={w} className={styles.letterWord}>
                     {[...word].map((letter, i) => (
-                        <div key={i} className='letter-container'>
-                            <Letter
-                                variants={letterVariants}
-                                custom={letterIndex++}
-                                style={{display: 'inline-block'}}
-                                className={className}
-                            >
+                        <div key={i}>
+                            <Letter variants={letterVariants} custom={letterIndex++} className={letterClass}>
                                 {letter}
                             </Letter>
                         </div>

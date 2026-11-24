@@ -15,6 +15,7 @@
 # misc
 .idea
 .impeccable
+.claude
 .DS_Store
 .env.local
 .env.development.local

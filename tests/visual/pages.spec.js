@@ -17,11 +17,11 @@ const VIEWPORTS = [
     {name: 'desktop', width: 1600, height: 900},
 ];
 
-// Things whose position depends on time or on when the layout was measured (marquee, rotating badge,
-// react-scroll-parallax image layers) are frozen so the shots are stable.
+// Things whose position depends on time or on when the layout was measured (marquee, rotating badge text,
+// react-scroll-parallax image layers) are frozen, and the custom cursor is hidden, so the shots are stable.
+// Component classes are CSS-module hashes, so the app marks these with data-testid.
 const FREEZE_CSS = `
-  .parallax .scroller, .circular-text__ring,
-  .home-cases .image > div, .footer-bg > div { transform: none !important; }
+  [data-testid="marquee"], [data-testid="parallax-layer"], .circular-text__ring { transform: none !important; }
   /* react-animated-cursor (no class names): follows the mouse and animates on hover */
   #root > div[style*="z-index: 999"][style*="pointer-events: none"] { display: none !important; }
 `;
@@ -72,7 +72,7 @@ for (const vp of VIEWPORTS) {
                 await page.goto('/');
                 await page.addStyleTag({content: FREEZE_CSS});
                 await settle(page);
-                await page.locator('.menu-icon .hamburger-react').click();
+                await page.locator('.hamburger-react').click();
                 await settle(page);
                 await expect.soft(page).toHaveScreenshot(`${vp.name}/menu-open.png`);
             });

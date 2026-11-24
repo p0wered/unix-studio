@@ -1,0 +1,20 @@
+/* size is set inline: 160px, 120px up to 992px */
+.badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.disc {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: var(--badge-black);
+  color: var(--content-light);
+}
+
+.text {
+  font-family: 'Hubot Sans', sans-serif;
+  line-height: 1;
+}

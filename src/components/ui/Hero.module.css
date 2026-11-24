@@ -1,0 +1,79 @@
+.hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+  height: 100svh; /* mobile: the visible height with the address bar shown */
+  overflow: hidden;
+  color: var(--content-light);
+  background-color: var(--content-dark);
+  background-position: center 95%;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* thin lines (SVG) over the green glow; AVIF keeps the dark gradient smooth, WebP for older browsers */
+.glow {
+  background-image: url('../../assets/hero-lines.svg'), url('../../assets/hero-glow.webp');
+  background-image: url('../../assets/hero-lines.svg'),
+    image-set(url('../../assets/hero-glow.avif') type('image/avif'), url('../../assets/hero-glow.webp') type('image/webp'));
+}
+
+.dark {
+  background-image: url('../../assets/hero-lines-dark.svg');
+}
+
+.inner {
+  margin-top: 12vh;
+  display: flex;
+  gap: 12px;
+  width: min-content;
+}
+
+.inner.wide {
+  width: auto;
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+}
+
+.text {
+  max-width: 580px;
+  color: var(--content-dark);
+}
+
+.text.light {
+  color: var(--border-light);
+}
+
+/* the asterisk */
+.star img {
+  width: 128px;
+  height: 128px;
+}
+
+.starAside {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+@media screen and (max-width: 992px) {
+  .hero {
+    align-items: center;
+  }
+  .inner {
+    flex-direction: column;
+    gap: 0;
+  }
+  .bottom {
+    flex-direction: column-reverse;
+  }
+  .star img {
+    width: calc(55px + 6vw);
+    height: calc(55px + 6vw);
+  }
+}

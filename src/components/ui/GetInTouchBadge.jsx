@@ -2,6 +2,7 @@ import {m} from 'motion/react';
 import {Link} from 'react-router';
 import CircularText from './CircularText';
 import {useMediaQuery} from '../../hooks/useMediaQuery';
+import styles from './GetInTouchBadge.module.css';
 
 // Proportions measured from the original raster badge (300px canvas): the disc is 95% of the box,
 // the four-point star 44%, the text band sits at ~0.73 of the radius.
@@ -24,9 +25,9 @@ export function GetInTouchBadge() {
     const size = compact ? 120 : 160;
 
     return (
-        <Link to='/contact' className='get-in-touch-badge' aria-label='Get in touch' style={{width: size, height: size}}>
+        <Link to='/contact' className={styles.badge} aria-label='Get in touch' style={{width: size, height: size}}>
             <m.div
-                className='get-in-touch-badge__disc'
+                className={styles.disc}
                 style={{width: size * DISC, height: size * DISC}}
                 initial={{opacity: 0}}
                 animate={{opacity: 1}}
@@ -43,7 +44,7 @@ export function GetInTouchBadge() {
                     size={Math.round(size * RING)}
                     fontSize={Math.round(size * FONT)}
                     fontWeight={800}
-                    className='get-in-touch-badge__text'
+                    className={styles.text}
                 >
                     <Star size={Math.round(size * STAR)}/>
                 </CircularText>

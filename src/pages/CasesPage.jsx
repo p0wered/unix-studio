@@ -3,11 +3,10 @@ import {m} from 'motion/react';
 import {AnimatedHeadingLetters} from '../components/motion/AnimatedHeading';
 import {Reveal} from '../components/motion/Reveal';
 import {EASE_OUT, FADE} from '../components/motion/presets';
-import {cssUrl} from '../components/ui/cssUrl';
 import {Hero} from '../components/ui/Hero';
 import {Footer} from '../components/layout/Footer';
 import {CASE_CATEGORIES, CASE_STUDIES, FEATURED_TEXT} from '../data/cases';
-import HeroLines from '../assets/hero-lines-dark.svg';
+import styles from './CasesPage.module.css';
 
 const circlesVariants = {
     hidden: {opacity: 1},
@@ -28,19 +27,19 @@ const circleVariants = {
 
 function AwardCircles() {
     return (
-        <m.div className='cases-circle-row' variants={circlesVariants} initial='hidden' animate='visible'>
+        <m.div className={styles.circles} variants={circlesVariants} initial='hidden' animate='visible'>
             {[0, 1, 2, 3].map((i) => (
                 <m.div
                     key={i}
-                    className='cases-circle flex-center'
+                    className={`${styles.circle} flex-center`}
                     variants={circleVariants}
                     custom={i}
                     style={{zIndex: 3 - i}}
                 >
                     {i === 0 && (
-                        <div>
+                        <div className={styles.circleLabel}>
                             <p>WEBBY RED DOT</p>
-                            <p style={{color: 'grey'}}>-X5</p>
+                            <p className={styles.circleCount}>-X5</p>
                         </div>
                     )}
                 </m.div>
@@ -71,14 +70,14 @@ function useCaseFilter() {
 
 function CaseCard({study, rightBorder}) {
     return (
-        <div className={`cases-grid-item${rightBorder ? ' cases-right-border' : ''}`}>
-            <Reveal variants={FADE} transition={{duration: 1, ease: EASE_OUT}}>
-                <div style={{display: 'flex', alignItems: 'center', gap: 5, flexDirection: 'row'}}>
+        <div className={rightBorder ? `${styles.card} ${styles.rightBorder}` : styles.card}>
+            <Reveal className={styles.cardBody} variants={FADE} transition={{duration: 1, ease: EASE_OUT}}>
+                <div className={styles.cardTitle}>
                     <p>{study.title}</p>
-                    <p className='change-font' style={{fontSize: 16}}>/{study.year}</p>
+                    <p className={`change-font ${styles.cardYear}`}>/{study.year}</p>
                 </div>
-                <p className='change-font cases-item-desc'>{study.text}</p>
-                <img src={study.image} alt={study.title} loading='lazy' decoding='async'/>
+                <p className={`change-font ${styles.cardText}`}>{study.text}</p>
+                <img className={styles.cardImage} src={study.image} alt={study.title} loading='lazy' decoding='async'/>
             </Reveal>
         </div>
     );
@@ -88,13 +87,13 @@ function CasesSection() {
     const {active, cases, filters} = useCaseFilter();
 
     return (
-        <section className='cases-section container'>
-            <div className='cases-buttons-flexbox'>
+        <section className={`${styles.section} container`}>
+            <div className={styles.filters}>
                 {filters.map((f) => (
-                    <div key={f.id} className={`cases-button-container${f.id === active ? ' is-active' : ''}`}>
+                    <div key={f.id} className={f.id === active ? `${styles.filter} ${styles.active}` : styles.filter}>
                         <Link
                             to={f.id === 'all' ? '/cases' : `/cases?${FILTER_PARAM}=${f.id}`}
-                            className='cases-button change-font'
+                            className={`${styles.filterLink} change-font`}
                             aria-current={f.id === active ? 'page' : undefined}
                         >
                             <p>{f.label} [{f.count}]</p>
@@ -102,11 +101,11 @@ function CasesSection() {
                     </div>
                 ))}
             </div>
-            <div className='cases-grid'>
-                <div className='cases-grid-item wide-item'>
-                    <Reveal variants={FADE}>
+            <div className={styles.grid}>
+                <div className={`${styles.card} ${styles.featured}`}>
+                    <Reveal className={styles.cardBody} variants={FADE}>
                         <p>FEATURED</p>
-                        <p className='change-font cases-item-desc'>{FEATURED_TEXT}</p>
+                        <p className={`change-font ${styles.cardText}`}>{FEATURED_TEXT}</p>
                     </Reveal>
                 </div>
                 {cases.map((study, i) => (
@@ -114,8 +113,8 @@ function CasesSection() {
                     <CaseCard key={study.id} study={study} rightBorder={i % 2 === 0}/>
                 ))}
             </div>
-            <div className='flex-center' style={{marginTop: '2rem'}}>
-                <Link className='primary-link' style={{color: 'var(--content-light)'}} to='/cases'>VIEW ALL CASES</Link>
+            <div className={`${styles.viewAll} flex-center`}>
+                <Link className='primary-link' to='/cases'>VIEW ALL CASES</Link>
             </div>
         </section>
     );
@@ -125,17 +124,17 @@ export default function CasesPage() {
     return (
         <div>
             <Hero
-                background={cssUrl(HeroLines)}
-                innerStyle={{width: 'auto'}}
+                background='dark'
+                wideTitle
                 title={
                     <div>
                         <AnimatedHeadingLetters text='OUR CASES' as='h1'/>
-                        <AnimatedHeadingLetters text='/SHOT' as='h1' className='border-text'/>
+                        <AnimatedHeadingLetters text='/SHOT' as='h1' className={styles.outlined}/>
                     </div>
                 }
                 aside={<AwardCircles/>}
                 text='Take a look behind the scenes, and discover the untold stories behind our projects, lessons learned, work culture, and business curiosities.'
-                textStyle={{color: 'var(--border-light)'}}
+                lightText
             />
             <CasesSection/>
             <Footer/>

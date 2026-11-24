@@ -9,6 +9,7 @@ import {
     useVelocity,
     wrap,
 } from "motion/react";
+import styles from "./ParallaxText.module.css";
 
 // Endless marquee whose speed and direction follow the page scroll velocity.
 export function ParallaxText({ children, baseVelocity = 100 }) {
@@ -44,8 +45,9 @@ export function ParallaxText({ children, baseVelocity = 100 }) {
     });
 
     return (
-        <div className="parallax">
-            <m.div className="scroller" style={{x}}>
+        <div className={styles.parallax}>
+            {/* data-testid: frozen in the visual tests (moves every frame) */}
+            <m.div className={styles.scroller} style={{x}} data-testid="marquee">
                 <span>{children}</span>
                 <span>{children}</span>
                 <span>{children}</span>

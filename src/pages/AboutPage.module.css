@@ -1,0 +1,106 @@
+.aiGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--border-light);
+}
+
+.aiItem {
+  padding: 3rem;
+}
+
+.aiItemTitle {
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.aiImageItem {
+  border-right: 1px solid var(--border-light);
+  border-left: 1px solid var(--border-light);
+}
+
+.aiImage {
+  width: 100%;
+  height: auto;
+}
+
+.aiImageCaption {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 12px;
+}
+
+.aiOutro {
+  padding: 5rem 0 0 0;
+}
+
+.aiOutro p {
+  text-align: center;
+  max-width: 840px;
+}
+
+.imageSection {
+  background-color: var(--content-dark);
+  background-image: url('../assets/glow-lower.webp');
+  background-image: image-set(url('../assets/glow-lower.avif') type('image/avif'), url('../assets/glow-lower.webp') type('image/webp'));
+}
+
+.image {
+  width: 100%;
+  max-width: 1200px;
+  height: auto;
+  border-radius: 24px;
+  object-fit: cover;
+}
+
+.quote {
+  background-color: var(--content-dark);
+  color: var(--content-light);
+}
+
+/* nested: .container sets the padding */
+.quote.quote {
+  padding-top: 0;
+}
+
+.quoteInner {
+  flex-direction: column;
+  gap: 4vw;
+}
+
+.quoteInner h3 {
+  max-width: 1200px;
+  text-align: center;
+}
+
+@media screen and (max-width: 1400px) {
+  .aiImageItem {
+    display: none;
+  }
+  .aiItem.first {
+    border-right: 1px solid var(--border-light);
+  }
+  .aiGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .aiGrid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .aiItem.first {
+    border-right: none;
+  }
+  .aiItem {
+    border-bottom: 1px solid var(--border-light);
+  }
+  .image {
+    height: 380px;
+  }
+}
+
+/* WIP team carousel (not on the page yet) */
+.team {
+  margin-left: var(--page-gutter);
+  padding-bottom: 6vh;
+}

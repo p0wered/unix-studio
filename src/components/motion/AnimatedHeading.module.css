@@ -1,0 +1,28 @@
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* clips each word while it slides up into place */
+.wordBox {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  height: fit-content;
+  transform-style: preserve-3d;
+}
+
+.word {
+  display: inline-block;
+  margin-right: 14px;
+}
+
+.letterWord {
+  display: flex;
+  margin-right: 1.5em;
+  overflow: hidden;
+}
+
+.letter {
+  display: inline-block;
+}

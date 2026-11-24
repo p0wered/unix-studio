@@ -1,0 +1,158 @@
+/* "/SHOT" in the hero */
+.outlined {
+  color: var(--content-dark);
+  margin-bottom: 3px;
+  -webkit-text-stroke: 1px var(--stroke-soft);
+}
+
+/* award circles in the hero */
+.circles {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+
+.circle {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  border: 1px solid var(--stroke-soft);
+  background-color: var(--content-dark);
+}
+
+.circleLabel {
+  width: 165px;
+}
+
+.circleCount {
+  color: var(--content-subtle);
+}
+
+.section {
+  background-color: var(--content-dark);
+}
+
+.filters {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.filter {
+  color: var(--content-cold-white);
+  background-color: var(--border-dark);
+  border: 1px solid transparent;
+  border-radius: 120px;
+  transition: color 0.3s, background-color 0.3s, border-color 0.3s;
+}
+
+/* hover, and the currently selected filter */
+.filter:hover,
+.filter.active {
+  border-color: var(--content-dark);
+  background-color: var(--content-light);
+  color: var(--content-dark);
+}
+
+.filterLink {
+  display: flex;
+  gap: 8px;
+  padding: 12px 26px;
+}
+
+.filterLink p {
+  font-size: 16px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--border-dark);
+}
+
+.card {
+  color: var(--content-light);
+  padding: 2rem;
+  border-bottom: 1px solid var(--border-dark);
+}
+
+.card.rightBorder {
+  border-right: 1px solid var(--border-dark);
+}
+
+/* the "FEATURED" cell: first column, three rows tall */
+.card.featured {
+  grid-row: span 3;
+  border-right: 1px solid var(--border-dark);
+}
+
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.cardTitle {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}
+
+.cardYear {
+  font-size: 16px;
+}
+
+.cardText {
+  font-size: 16px;
+  color: var(--border-light);
+}
+
+.cardImage {
+  width: 100%;
+  aspect-ratio: 1; /* square sources: reserve the space before the lazy image loads */
+  border-radius: 50%;
+}
+
+.viewAll {
+  margin-top: 2rem;
+}
+
+.viewAll a {
+  color: var(--content-light);
+}
+
+@media screen and (max-width: 992px) {
+  .circles {
+    margin-top: 8px;
+  }
+  .circle {
+    width: 132px;
+    height: 132px;
+  }
+  .circleLabel {
+    width: 100px;
+  }
+  .circleLabel p {
+    font-size: 14px;
+  }
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .card.featured {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .card.rightBorder {
+    border-right: none;
+  }
+}

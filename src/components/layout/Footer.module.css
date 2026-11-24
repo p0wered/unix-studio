@@ -1,0 +1,112 @@
+.footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: var(--content-cold-white);
+  position: relative;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4rem;
+  width: 150%;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  align-items: baseline;
+}
+
+.socials {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  max-width: 500px;
+  gap: 8px;
+}
+
+.socials a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-family: 'Hubot Sans', sans-serif;
+  font-weight: 400;
+  padding: 12px 24px;
+  border-radius: 60px;
+  border: 1px solid var(--content-dark);
+}
+
+.label {
+  color: var(--content-muted);
+  font-size: 16px;
+}
+
+/* nested: must beat .change-font (font-weight 400) */
+.inner .email {
+  font-weight: 500;
+}
+
+.ctaContainer {
+  color: var(--content-cold-white);
+  background-color: var(--content-dark);
+  border: 1px solid transparent;
+  border-radius: 120px;
+}
+
+.cta {
+  display: flex;
+  gap: 8px;
+  padding: 20px 38px;
+}
+
+.cta p {
+  min-width: 174px;
+  font-size: 18px;
+}
+
+.bottom {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* same line box as the <a> it replaced, so the footer height doesn't change */
+.toTop {
+  display: block;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.copyright {
+  font-size: 16px;
+}
+
+@media screen and (max-width: 992px) {
+  .socials {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .content {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .footer {
+    flex-direction: column;
+  }
+  .image {
+    height: 200px;
+  }
+}

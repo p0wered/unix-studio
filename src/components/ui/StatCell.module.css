@@ -1,0 +1,45 @@
+.cell {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2vw;
+  min-height: calc(130px + 8vw);
+  border-left: 1px solid var(--border-dark);
+  border-bottom: 1px solid var(--border-dark);
+}
+
+.cell p {
+  font-size: 18px;
+}
+
+.tall {
+  min-height: calc(130px + 10vw);
+}
+
+.wide {
+  grid-column: span 2;
+}
+
+/* "Get in touch" cell on the left, the height of the whole grid; hidden on tablets */
+.cell.aside {
+  align-items: center;
+  border-left: 0;
+  grid-row: span 4;
+}
+
+.aside a {
+  font-size: 24px;
+}
+
+@media screen and (max-width: 992px) {
+  /* cells in the left column lose their left border once the grid has 2 columns */
+  .cell.leftColumn {
+    border-left: 0;
+  }
+  .wide {
+    grid-column: span 1;
+  }
+  .aside {
+    display: none;
+  }
+}

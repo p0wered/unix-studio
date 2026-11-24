@@ -5,6 +5,7 @@ import {Twirl as Hamburger} from 'hamburger-react';
 import {Separator} from '../motion/Separator';
 import {EASE_OUT} from '../motion/presets';
 import {NAV_LINKS} from '../../data/navigation';
+import styles from './NavBar.module.css';
 
 const MOBILE_MENU_QUERY = '(max-width: 720px)';
 
@@ -59,16 +60,16 @@ export function NavBar() {
 
     return (
         <>
-            <m.nav initial={{opacity: 0}} animate={{opacity: 1}} transition={{duration: 1, type: 'spring'}}>
+            <m.nav className={styles.nav} initial={{opacity: 0}} animate={{opacity: 1}} transition={{duration: 1, type: 'spring'}}>
                 <div>
-                    <NavLink className='logo primary-link' to='/' onClick={closeMenu}>UNIXSTUDIO</NavLink>
+                    <NavLink className={`${styles.logo} primary-link`} to='/' onClick={closeMenu}>UNIXSTUDIO</NavLink>
                 </div>
-                <div className='links change-font'>
+                <div className={`${styles.links} change-font`}>
                     {NAV_LINKS.map(({label, to}) => (
                         <NavLink key={to} className='primary-link' to={to}>{label}</NavLink>
                     ))}
                 </div>
-                <div className='menu-icon'>
+                <div className={styles.menuIcon}>
                     <Hamburger toggled={menuOpen} toggle={setMenuOpen} size={26} duration={0.3} label='Toggle menu'/>
                 </div>
             </m.nav>
@@ -76,7 +77,7 @@ export function NavBar() {
                 variants={menuVariants}
                 initial='hidden'
                 animate={menuOpen ? 'visible' : 'hidden'}
-                className='mobile-menu'
+                className={styles.mobileMenu}
                 aria-hidden={!menuOpen}
                 // a closed menu stays in the DOM (off-screen), so take it out of the tab order
                 inert={!menuOpen}
@@ -84,11 +85,11 @@ export function NavBar() {
                 {NAV_LINKS.map(({label, to}) => (
                     <Fragment key={to}>
                         <m.div variants={menuLinkVariants}>
-                            <NavLink className='mobile-link' to={to} onClick={closeMenu}>
+                            <NavLink to={to} onClick={closeMenu}>
                                 <h2>{label}</h2>
                             </NavLink>
                         </m.div>
-                        <Separator wide/>
+                        <Separator wide dark/>
                     </Fragment>
                 ))}
             </m.div>

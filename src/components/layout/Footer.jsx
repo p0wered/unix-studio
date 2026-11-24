@@ -7,6 +7,7 @@ import {CONTACTS, SOCIAL_LINKS} from '../../data/navigation';
 import FooterImg from '../../assets/footer.webp';
 import FooterArrow from '../../assets/footer-arrow.svg';
 import ArrowUp from '../../assets/arrow_up.svg';
+import styles from './Footer.module.css';
 
 const linksVariants = {
     hidden: {opacity: 1},
@@ -21,14 +22,12 @@ const linkVariants = {
     visible: {y: 0, opacity: 1, transition: {ease: EASE_OUT}},
 };
 
-const labelStyle = {color: '#7c7c7c', fontSize: 16};
-
 export function Footer() {
     return (
-        <footer>
-            <div className='footer-container'>
-                <div className='inner'>
-                    <Reveal className='footer-grid' variants={linksVariants} transition={{}}>
+        <footer className={styles.footer}>
+            <div className={styles.content}>
+                <div className={styles.inner}>
+                    <Reveal className={styles.socials} variants={linksVariants} transition={{}}>
                         {SOCIAL_LINKS.map(({label, href}) => (
                             <m.a
                                 key={label}
@@ -47,44 +46,45 @@ export function Footer() {
                         ))}
                     </Reveal>
                     <Reveal>
-                        <p className='change-font' style={labelStyle}>OUR TEAM IS</p>
+                        <p className={`change-font ${styles.label}`}>OUR TEAM IS</p>
                         <h4>{CONTACTS.location}</h4>
                     </Reveal>
                     <Reveal delay={0.1}>
-                        <p className='change-font' style={labelStyle}>DROP US A LINE</p>
-                        <h4 className='change-font' style={{fontWeight: 500}}>{CONTACTS.email}</h4>
+                        <p className={`change-font ${styles.label}`}>DROP US A LINE</p>
+                        <h4 className={`change-font ${styles.email}`}>{CONTACTS.email}</h4>
                     </Reveal>
                     <Reveal
-                        className='footer-btn-container'
+                        className={styles.ctaContainer}
                         whileHover={{
                             border: '1px solid var(--content-dark)',
                             backgroundColor: 'var(--content-light)',
                             color: 'var(--content-dark)',
                         }}
                     >
-                        <Link to='/contact' className='footer-btn change-font'>
+                        <Link to='/contact' className={`${styles.cta} change-font`}>
                             <p>BECOME A CLIENT</p>
                             <img src={FooterArrow} alt=''/>
                         </Link>
                     </Reveal>
-                    <Reveal className='merger'>
+                    <Reveal className={styles.bottom}>
                         <button
                             type='button'
-                            className='to-top'
+                            className={styles.toTop}
                             aria-label='Back to top'
                             onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}
                         >
                             <img src={ArrowUp} alt=''/>
                         </button>
-                        <p className='change-font' style={{fontSize: 16}}>
+                        <p className={`change-font ${styles.copyright}`}>
                             © {new Date().getFullYear()} Unix Studio. — Product Design Agency
                         </p>
                     </Reveal>
                 </div>
             </div>
             <ParallaxBanner>
-                <div className='footer-bg'>
-                    <ParallaxBannerLayer image={FooterImg} speed={-15}/>
+                <div className={styles.image}>
+                    {/* testId: frozen in the visual tests (its offset depends on when the layout was measured) */}
+                    <ParallaxBannerLayer image={FooterImg} speed={-15} testId='parallax-layer'/>
                 </div>
             </ParallaxBanner>
         </footer>

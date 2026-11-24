@@ -1,0 +1,14 @@
+.separator {
+  height: 1px;
+  background-color: var(--border-light);
+  margin: 0 var(--page-gutter);
+}
+
+/* two classes, so it also wins over any margin set by a parent's media query */
+.separator.wide {
+  margin: 0;
+}
+
+.separator.dark {
+  background-color: var(--border-dark);
+}

@@ -3,43 +3,46 @@ import {useInView} from 'motion/react';
 import {Reveal} from '../motion/Reveal';
 import {REVEAL_UP_SHORT} from '../motion/presets';
 import QuoteMark from '../../assets/review.svg';
+import styles from './Testimonial.module.css';
 
 /**
  * Quote mark + quote + author. The quote mark follows the quote text into view;
  * the author row slides in a bit later on its own.
+ *
+ * size: 'small' (72px avatar) or 'large' (140px avatar, smaller role caption)
  */
-export function Testimonial({review, avatarClassName, avatarStyle, roleStyle}) {
+export function Testimonial({review, size = 'small'}) {
     const quoteRef = useRef(null);
     const quoteInView = useInView(quoteRef);
+    const large = size === 'large';
 
     return (
-        <div className='review-flexbox' style={{maxWidth: '55rem'}}>
+        <div className={styles.testimonial}>
             <Reveal
                 as='img'
-                className='review-quote'
+                className={styles.quote}
                 src={QuoteMark}
                 alt=''
                 draggable={false}
                 variants={REVEAL_UP_SHORT}
                 inView={quoteInView}
             />
-            <div className='flex-column' style={{gap: 'calc(32px + 1vw)'}}>
+            <div className={styles.body}>
                 <Reveal as='h4' ref={quoteRef} className='change-font' inView={quoteInView}>
                     {review.quote}
                 </Reveal>
-                <Reveal delay={0.3} className='flex-row' style={{gap: '2rem', alignItems: 'center'}}>
+                <Reveal delay={0.3} className={styles.author}>
                     <img
                         src={review.avatar}
                         alt={review.name}
-                        className={avatarClassName}
-                        style={avatarStyle}
+                        className={large ? styles.avatarLarge : styles.avatarSmall}
                         loading='lazy'
                         decoding='async'
                         draggable={false}
                     />
                     <div>
                         <p>{review.name}</p>
-                        <p className='change-font' style={{color: '#808080', ...roleStyle}}>{review.role}</p>
+                        <p className={`change-font ${styles.role} ${large ? styles.compact : ''}`}>{review.role}</p>
                     </div>
                 </Reveal>
             </div>
