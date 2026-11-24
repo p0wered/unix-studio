@@ -20,4 +20,4 @@
 
 ## Preview
 
-![img.png](img.png)
+![Preview](docs/preview.webp)

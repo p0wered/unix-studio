@@ -1,27 +1,29 @@
 import {motion, useInView, useTime, useTransform} from "framer-motion";
-import BackgroundImg from "../assets/graphic.png";
+import HeroGlow from "../assets/hero-glow.webp";
+import HeroLines from "../assets/hero-lines.svg";
 import {AnimatedHeading, AnimatedHeadingWords} from "../animations";
-import StarImg from "../assets/star.png";
+import StarImg from "../assets/star.svg";
 import {Link, useLocation} from "react-router-dom";
-import GetInTouchImg from "../assets/get-in-touch.png";
+import GetInTouchImg from "../assets/get-in-touch.webp";
 import React, {useLayoutEffect, useRef} from "react";
 import {Footer} from "../App";
-import AiImage from '../assets/ai.jpg';
-import BackImgLower from "../assets/graphic_lower.png";
-import AboutImg from "../assets/about-img.jpg";
-import HomeCases3 from "../assets/case_3.png";
-import HomeCases2 from "../assets/case_2.png";
-import HomeCases4 from "../assets/case_4.jpg";
-import HomeCases5 from "../assets/case_5.jpg";
-import HomeCases6 from "../assets/case_6.jpg";
-import HomeCases7 from "../assets/case_7.png";
+import AiImage from '../assets/ai.webp';
+import BackImgLower from "../assets/glow-lower.webp";
+import AboutImg from "../assets/about-img.webp";
+import HomeCases3 from "../assets/case_3.webp";
+import HomeCases2 from "../assets/case_2.webp";
+import HomeCases4 from "../assets/case_4.webp";
+import HomeCases5 from "../assets/case_5.webp";
+import HomeCases6 from "../assets/case_6.webp";
+import HomeCases7 from "../assets/case_7.webp";
+import Slider from "react-slick";
 
 function TitleSection() {
     const time = useTime();
     const rotate = useTransform(time, [0, 12000], [0, 360], {clamp: false});
     return (
         <div>
-            <motion.div className='title-section container' style={{backgroundImage: `url(${BackgroundImg})`}}>
+            <motion.div className='title-section container' style={{backgroundImage: `url(${HeroLines}), url(${HeroGlow})`}}>
                 <div className='inner' style={{width: 'auto'}}>
                     <div>
                         <AnimatedHeadingWords
@@ -41,6 +43,7 @@ function TitleSection() {
                             animate={{rotate: 90, scale: 1}}
                             transition={{duration: 1, type: 'spring'}}
                             src={StarImg}
+                            alt=''
                             draggable={false}/>
                     </div>
                 </div>
@@ -61,6 +64,7 @@ function TitleSection() {
                                 initial={{opacity: 0}}
                                 animate={{opacity: 1}}
                                 src={GetInTouchImg}
+                                alt='Get in touch'
                                 whileHover={{scale: 1.1}}
                             />
                         </Link>
@@ -85,7 +89,8 @@ function AiSection(){
                 </div>
                 <div className='ai-grid-item' id='image-ai'
                      style={{borderRight: '1px solid var(--border-light)', borderLeft: '1px solid var(--border-light)'}}>
-                    <img src={AiImage} alt="" style={{width: '100%'}}/>
+                    <img src={AiImage} alt="" width={400} height={307} loading="lazy" decoding="async"
+                         style={{width: "100%", height: "auto"}}/>
                     <p style={{textAlign: 'center', fontSize: 18, marginTop: 12}}>BOOST YOUR BUSINESS</p>
                 </div>
                 <div className='ai-grid-item'>
@@ -112,7 +117,8 @@ function ImageSection(){
             className='container'
             style={{backgroundImage: `url(${BackImgLower})`, backgroundColor: 'var(--content-dark)'}}>
             <div className='flex-center'>
-                <img className='about-image' src={AboutImg} alt="" style={{maxWidth: 1200}}/>
+                <img className="about-image" src={AboutImg} alt="" width={1280} height={700}
+                     loading="lazy" decoding="async" style={{maxWidth: 1200}}/>
             </div>
         </section>
     )
@@ -160,10 +166,11 @@ function CasesSlider() {
             <Slider {...settings}>
                 {
                     titles.map((title, i) => (
-                        <div className='h-item' key={title}>
-                            <img src={images[i]} alt={`image ${i}`}/>
+                        // titles are placeholders and repeat, so the index is part of the key
+                        <div className='h-item' key={`${title}-${i}`}>
+                            <img src={images[i]} alt={title} loading="lazy" decoding="async"/>
                             <div className='merger'>
-                                <a href='#' className='primary-link' style={{fontSize: 24}}>{title}</a>
+                                <p className='primary-link' style={{fontSize: 24}}>{title}</p>
                             </div>
                         </div>
                     ))
@@ -173,7 +180,9 @@ function CasesSlider() {
     );
 }
 
-function Slider(){
+// WIP: not rendered on the page yet.
+// eslint-disable-next-line no-unused-vars
+function SliderSection(){
     const slider = useRef();
     const sliderInView = useInView(slider, {once: false});
 

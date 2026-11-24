@@ -1,12 +1,12 @@
 import {motion, useInView, useTime, useTransform} from "framer-motion";
-import BackgroundImg from "../assets/graphic-dark.png";
+import HeroLines from "../assets/hero-lines-dark.svg";
 import {AnimatedHeadingWords} from "../animations";
 import {Link, useLocation} from "react-router-dom";
-import GetInTouchImg from "../assets/get-in-touch.png";
+import GetInTouchImg from "../assets/get-in-touch.webp";
 import React, {useLayoutEffect, useRef} from "react";
-import Case1 from  '../assets/cases-page-1.png'
-import Case2 from "../assets/cases-page-2.png";
-import Case3 from "../assets/cases-page-3.png";
+import Case1 from  '../assets/cases-page-1.webp'
+import Case2 from "../assets/cases-page-2.webp";
+import Case3 from "../assets/cases-page-3.webp";
 import {Footer} from "../App";
 
 function TitleSection() {
@@ -39,7 +39,7 @@ function TitleSection() {
 
     return (
         <div>
-            <div className='title-section container' style={{backgroundImage: `url(${BackgroundImg})`}}>
+            <div className='title-section container' style={{backgroundImage: `url(${HeroLines})`}}>
                 <div className='inner' style={{width: 'auto'}}>
                     <div>
                         <AnimatedHeadingWords
@@ -91,6 +91,7 @@ function TitleSection() {
                                 initial={{opacity: 0}}
                                 animate={{opacity: 1}}
                                 src={GetInTouchImg}
+                                alt='Get in touch'
                                 whileHover={{scale: 1.1}}
                             />
                         </Link>
@@ -151,23 +152,21 @@ function CasesSection(){
     return(
         <section className='cases-section container'>
             <div className='cases-buttons-flexbox'>
-                {Object.entries(buttonTitles).map(([title, url], index) => (
-                    <>
-                        <motion.div
-                            key={index}
-                            variants={buttons}
-                            className='cases-button-container'
-                            whileHover={{
-                                border: '1px solid var(--content-dark)',
-                                backgroundColor: 'var(--content-light)',
-                                color: 'var(--content-dark)'
-                            }}
-                        >
-                            <Link to='/cases' className='cases-button change-font'>
-                                <p>{title}</p>
-                            </Link>
-                        </motion.div>
-                    </>
+                {Object.entries(buttonTitles).map(([title, filter]) => (
+                    <motion.div
+                        key={filter}
+                        variants={buttons}
+                        className='cases-button-container'
+                        whileHover={{
+                            border: '1px solid var(--content-dark)',
+                            backgroundColor: 'var(--content-light)',
+                            color: 'var(--content-dark)'
+                        }}
+                    >
+                        <Link to='/cases' className='cases-button change-font'>
+                            <p>{title}</p>
+                        </Link>
+                    </motion.div>
                 ))}
             </div>
             <div className='cases-grid'>
@@ -203,7 +202,7 @@ function CasesSection(){
                             as it is accessible everywhere, by everyone. By building this museum, ELEKTRA aims to share
                             its 20 years of expertise in the field of media arts and offer visitors a unique experience.
                         </p>
-                        <img src={Case1} alt=""/>
+                        <img src={Case1} alt="" loading="lazy" decoding="async"/>
                     </motion.div>
                 </div>
                 <div className='cases-grid-item'>
@@ -222,7 +221,7 @@ function CasesSection(){
                             as it is accessible everywhere, by everyone. By building this museum, ELEKTRA aims to share
                             its 20 years of expertise in the field of media arts and offer visitors a unique experience.
                         </p>
-                        <img src={Case2} alt=""/>
+                        <img src={Case2} alt="" loading="lazy" decoding="async"/>
                     </motion.div>
                 </div>
                 <div className='cases-grid-item cases-right-border'>
@@ -242,7 +241,7 @@ function CasesSection(){
                             but the experience that we have gained with two-wheelers for over 90 years is useful to our
                             customers and customers benefit.
                         </p>
-                        <img src={Case3} alt=""/>
+                        <img src={Case3} alt="" loading="lazy" decoding="async"/>
                     </motion.div>
                 </div>
                 <div className='cases-grid-item'>
@@ -261,7 +260,7 @@ function CasesSection(){
                             as it is accessible everywhere, by everyone. By building this museum, ELEKTRA aims to share
                             its 20 years of expertise in the field of media arts and offer visitors a unique experience.
                         </p>
-                        <img src={Case1} alt=""/>
+                        <img src={Case1} alt="" loading="lazy" decoding="async"/>
                     </motion.div>
                 </div>
                 <div className='cases-grid-item cases-right-border'>
@@ -280,7 +279,7 @@ function CasesSection(){
                             as it is accessible everywhere, by everyone. By building this museum, ELEKTRA aims to share
                             its 20 years of expertise in the field of media arts and offer visitors a unique experience.
                         </p>
-                        <img src={Case1} alt=""/>
+                        <img src={Case1} alt="" loading="lazy" decoding="async"/>
                     </motion.div>
                 </div>
                 <div className='cases-grid-item'>
@@ -299,7 +298,7 @@ function CasesSection(){
                             as it is accessible everywhere, by everyone. By building this museum, ELEKTRA aims to share
                             its 20 years of expertise in the field of media arts and offer visitors a unique experience.
                         </p>
-                        <img src={Case1} alt=""/>
+                        <img src={Case1} alt="" loading="lazy" decoding="async"/>
                     </motion.div>
                 </div>
             </div>

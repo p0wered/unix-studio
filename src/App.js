@@ -1,21 +1,53 @@
-import React, {useRef, useState} from 'react';
-import {BrowserRouter, Link, NavLink, Route, Routes} from "react-router-dom";
+import React, {Fragment, useEffect, useRef, useState} from 'react';
+import {BrowserRouter, Link, NavLink, Route, Routes, useLocation} from "react-router-dom";
 import HomePage from "./routes/home-page";
 import ServicesPage from "./routes/services-page";
 import ContactPage from "./routes/contact-page";
 import AboutPage from "./routes/about-page";
 import CasePage from "./routes/case-page";
-import {motion, useInView, useTime, useTransform} from "framer-motion";
+import NotFoundPage from "./routes/not-found-page";
+import {motion, useInView} from "framer-motion";
 import AnimatedCursor from "react-animated-cursor";
-import FooterImg from './assets/footer.png';
+import FooterImg from './assets/footer.webp';
 import FooterArrow from './assets/footer-arrow.svg';
 import ArrowUp from './assets/arrow_up.svg';
 import {ParallaxBanner, ParallaxBannerLayer, ParallaxProvider} from "react-scroll-parallax";
 import {Twirl as Hamburger} from 'hamburger-react'
 import {SeparatorWide} from "./animations";
 
+const MOBILE_MENU_QUERY = '(max-width: 720px)';
+
 function NavBar(){
     const [menuOpen, setMenuOpen] = useState(false);
+    const {pathname} = useLocation();
+
+    // Close the menu on any navigation (links also close it on click, for when the path doesn't change)
+    useEffect(() => {
+        setMenuOpen(false);
+    }, [pathname]);
+
+    // While the menu is open: lock page scroll, close on Esc, close when the viewport grows past the mobile layout
+    useEffect(() => {
+        if (!menuOpen) return;
+        const mq = window.matchMedia(MOBILE_MENU_QUERY);
+        const close = () => setMenuOpen(false);
+        const onKeyDown = (e) => {
+            if (e.key === 'Escape') close();
+        };
+        const onMqChange = (e) => {
+            if (!e.matches) close();
+        };
+        const prevOverflow = document.body.style.overflow;
+        document.body.style.overflow = 'hidden';
+        document.addEventListener('keydown', onKeyDown);
+        mq.addEventListener('change', onMqChange);
+        return () => {
+            document.body.style.overflow = prevOverflow;
+            document.removeEventListener('keydown', onKeyDown);
+            mq.removeEventListener('change', onMqChange);
+        };
+    }, [menuOpen]);
+
     const linkTitles = {
         "HOME": "/",
         "CASES": "/cases",
@@ -52,7 +84,7 @@ function NavBar(){
         <>
             <motion.nav initial={{opacity: 0}} animate={{opacity: 1}} transition={{duration: 1, type: 'spring'}}>
                 <div>
-                    <NavLink className='logo primary-link' to='/'>UNIXSTUDIO</NavLink>
+                    <NavLink className='logo primary-link' to='/' onClick={() => setMenuOpen(false)}>UNIXSTUDIO</NavLink>
                 </div>
                 <div className='links change-font'>
                     <NavLink className='primary-link' to='/'>HOME</NavLink>
@@ -62,7 +94,7 @@ function NavBar(){
                     <NavLink className='primary-link' to='/contact'>CONTACT</NavLink>
                 </div>
                 <div className='menu-icon'>
-                    <Hamburger toggled={menuOpen} toggle={setMenuOpen} size={26} duration={0.3}/>
+                    <Hamburger toggled={menuOpen} toggle={setMenuOpen} size={26} duration={0.3} label='Toggle menu'/>
                 </div>
             </motion.nav>
             <motion.div
@@ -70,19 +102,19 @@ function NavBar(){
                 initial="hidden"
                 animate={menuOpen ? "visible" : "hidden"}
                 className='mobile-menu'
+                aria-hidden={!menuOpen}
+                // a closed menu stays in the DOM (off-screen), so take it out of the tab order
+                inert={menuOpen ? undefined : ''}
             >
-                {Object.entries(linkTitles).map(([title, url], index) => (
-                    <>
-                        <motion.div
-                            key={index}
-                            variants={mobileLink}
-                        >
+                {Object.entries(linkTitles).map(([title, url]) => (
+                    <Fragment key={url}>
+                        <motion.div variants={mobileLink}>
                             <NavLink className='mobile-link' to={url} onClick={() => setMenuOpen(false)}>
                                 <h2>{title}</h2>
                             </NavLink>
                         </motion.div>
                         <SeparatorWide/>
-                    </>
+                    </Fragment>
                 ))}
             </motion.div>
         </>
@@ -100,8 +132,6 @@ export function Footer() {
     const emailInView = useInView(emailRef, {once: false});
     const btnInView = useInView(btnRef, {once: false});
     const copyInView = useInView(copyRef, {once: false});
-    const time = useTime();
-    const rotate = useTransform(time, [0, 12000], [0, 360], {clamp: false});
 
     const container = {
         hidden: {opacity: 1},
@@ -129,7 +159,7 @@ export function Footer() {
     const mediaItems = {
         "Facebook": "https://www.facebook.com",
         "Instagram": "https://www.instagram.com",
-        "Dribble": "https://www.dribble.com",
+        "Dribbble": "https://dribbble.com",
         "Linkedin": "https://www.linkedin.com",
         "Behance": "https://www.behance.com",
         "Telegram": "https://www.telegram.com",
@@ -149,7 +179,9 @@ export function Footer() {
                         {Object.entries(mediaItems).map(([label, url], index) => (
                             <motion.a
                                 href={url}
-                                key={index}
+                                target='_blank'
+                                rel='noopener noreferrer'
+                                key={label}
                                 variants={link}
                                 whileHover={{
                                     border: '1px solid transparent',
@@ -203,8 +235,15 @@ export function Footer() {
                         animate={copyInView ? {y: 0, opacity: 1} : {y: '100%', opacity: 0}}
                         className='merger'
                     >
-                        <a href='#'><img src={ArrowUp} alt='arrow-up'/></a>
-                        <p className='change-font' style={{fontSize: 16}}>© 2023 Unix Studio. — Product Design
+                        <button
+                            type='button'
+                            className='to-top'
+                            aria-label='Back to top'
+                            onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}
+                        >
+                            <img src={ArrowUp} alt=''/>
+                        </button>
+                        <p className='change-font' style={{fontSize: 16}}>© {new Date().getFullYear()} Unix Studio. — Product Design
                             Agency</p>
                     </motion.div>
                 </div>
@@ -244,6 +283,7 @@ function App() {
                 <Route path='/contact' element={<ContactPage/>}/>
                 <Route path='/about' element={<AboutPage/>}/>
                 <Route path='/cases' element={<CasePage/>}/>
+                <Route path='*' element={<NotFoundPage/>}/>
             </Routes>
       </BrowserRouter>
   );

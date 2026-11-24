@@ -21,3 +21,8 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# visual tests (baseline screenshots are local and platform-specific)
+/tests/visual/__screenshots__
+/tests/visual/results
+/tests/visual/report

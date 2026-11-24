@@ -1,21 +1,22 @@
-import StarImg from '../assets/star.png';
-import StarDarkImg from '../assets/star_dark.png';
-import GetInTouchImg from '../assets/get-in-touch.png';
-import BackgroundImg from '../assets/graphic.png';
-import BackImgLower from '../assets/graphic_lower.png';
+import StarImg from '../assets/star.svg';
+import StarDarkImg from '../assets/star-dark.svg';
+import GetInTouchImg from '../assets/get-in-touch.webp';
+import HeroGlow from '../assets/hero-glow.webp';
+import HeroLines from '../assets/hero-lines.svg';
+import BackImgLower from '../assets/glow-lower.webp';
 import ArrowButton from '../assets/arrow_button.svg';
-import HomeCases1 from '../assets/haven.png';
-import HomeCases2 from '../assets/case_2.png';
-import HomeCases3 from '../assets/case_3.png';
-import HomeCases4 from '../assets/case_4.jpg';
-import HomeCases5 from '../assets/case_5.jpg';
-import HomeCases6 from '../assets/case_6.jpg';
-import HomeCases7 from '../assets/case_7.png';
+import HomeCases1 from '../assets/haven.webp';
+import HomeCases2 from '../assets/case_2.webp';
+import HomeCases3 from '../assets/case_3.webp';
+import HomeCases4 from '../assets/case_4.webp';
+import HomeCases5 from '../assets/case_5.webp';
+import HomeCases6 from '../assets/case_6.webp';
+import HomeCases7 from '../assets/case_7.webp';
 import Vector1 from '../assets/vector.svg';
 import Slider from "react-slick";
 import ReviewSvg from '../assets/review.svg';
-import ReviewImg from '../assets/mask-review.jpg';
-import ReviewImg2 from '../assets/mask-review-2.png'
+import ReviewImg from '../assets/mask-review.webp';
+import ReviewImg2 from '../assets/mask-review-2.webp'
 import {
     AnimatedHeading,
     AnimatedHeadingWords,
@@ -39,7 +40,7 @@ function TitleSection() {
     const rotate = useTransform(time, [0, 12000], [0, 360], {clamp: false});
     return (
         <div>
-            <motion.div className='title-section container' style={{backgroundImage: `url(${BackgroundImg})`}}>
+            <motion.div className='title-section container' style={{backgroundImage: `url(${HeroLines}), url(${HeroGlow})`}}>
                 <div className='inner'>
                     <AnimatedHeadingWords
                         text='UNIXSTUDIO DIGITAL AGENCY'
@@ -52,6 +53,7 @@ function TitleSection() {
                             animate={{rotate: 90, scale: 1}}
                             transition={{duration: 1, type: 'spring'}}
                             src={StarImg}
+                            alt=''
                             draggable={false}/>
                     </div>
                 </div>
@@ -73,6 +75,7 @@ function TitleSection() {
                                 initial={{opacity: 0}}
                                 animate={{opacity: 1}}
                                 src={GetInTouchImg}
+                                alt='Get in touch'
                                 whileHover={{scale: 1.1}}
                             />
                         </Link>
@@ -121,11 +124,9 @@ function ToAboutSection() {
 }
 
 const ServiceItem = ({title}) => {
-    const ref = useRef();
-    useInView(ref, { once: false });
     return (
         <div>
-            <Link to='/error' className='item'>
+            <Link to='/services' className='item'>
                 <div className='item-title' style={{maxWidth: '55rem'}}>
                     <AnimatedHeading text={title} inViewOn={true} headingType='h3' />
                 </div>
@@ -137,14 +138,6 @@ const ServiceItem = ({title}) => {
 };
 
 function HomeServices(){
-    const linkTitles = {
-        "HOME": "/",
-        "CASES": "/cases",
-        "SERVICES": "/services",
-        "ABOUT": "/about",
-        "CONTACT": "/contact",
-    }
-
     const serviceTitles= [
         'Marketing and Communication Plan',
         'Branding',
@@ -158,8 +151,8 @@ function HomeServices(){
             <Separator/>
             <div className='home-services container'>
                 <div className='services-list'>
-                    {serviceTitles.map((title, index) => (
-                        <ServiceItem key={index} title={title} />
+                    {serviceTitles.map((title) => (
+                        <ServiceItem key={title} title={title} />
                     ))}
                 </div>
             </div>
@@ -246,9 +239,9 @@ function CasesSlider() {
                 {
                     titles.map((title, i) => (
                         <div className='h-item' key={title}>
-                            <img src={images[i]} alt={`image ${i}`}/>
+                            <img src={images[i]} alt={title} loading="lazy" decoding="async"/>
                             <div className='merger'>
-                                <a href='#' className='primary-link' style={{fontSize: 24}}>{title}</a>
+                                <Link to='/cases' className='primary-link' style={{fontSize: 24}}>{title}</Link>
                                 <p className='change-font'>{subjects[i]}</p>
                             </div>
                         </div>
@@ -269,13 +262,13 @@ function HomeCases() {
                 <ParallaxText baseVelocity={3}>
                     <div className='flex-row' style={{alignItems: 'center', gap: '2rem'}}>
                         <h2>UNIXSTUDIO</h2>
-                        <img className='star-dark' src={StarDarkImg} draggable={false}/>
+                        <img className='star-dark' src={StarDarkImg} alt='' draggable={false}/>
                     </div>
                 </ParallaxText>
                 <ParallaxText baseVelocity={-3}>
                     <div className='flex-row' style={{alignItems: 'center', gap: '2rem', marginTop: 8}}>
                         <h2>UNIXSTUDIO</h2>
-                        <img className='star-dark' src={StarDarkImg} draggable={false}/>
+                        <img className='star-dark' src={StarDarkImg} alt='' draggable={false}/>
                     </div>
                 </ParallaxText>
             </div>
@@ -308,7 +301,7 @@ function ReviewSection() {
     const ref = useRef();
     const isInView = useInView(ref, {once: false});
     const ref2 = useRef();
-    const isInView2 = useInView(ref, {once: false});
+    const isInView2 = useInView(ref2, {once: false});
     const star = useRef();
     const starInView = useInView(star, {once: false});
     const footer1 = useRef();
@@ -329,6 +322,7 @@ function ReviewSection() {
                                     animate={starInView ? {rotate: 90, scale: 1} : {scale: 0}}
                                     transition={{duration: 1, type: 'spring'}}
                                     src={StarImg}
+                                    alt=''
                                     draggable={false}/>
                     </div>
                     <div>
@@ -336,6 +330,7 @@ function ReviewSection() {
                             <motion.img
                                 id='review-1'
                                 src={ReviewSvg}
+                                alt=''
                                 draggable={false}
                                 transition={{duration: 0.7, ease: [0.01, 0.95, 0.98, 1]}}
                                 initial={{y: '80%', opacity: 0}}
@@ -363,7 +358,8 @@ function ReviewSection() {
                                     className='flex-row'
                                     style={{gap: '2rem', alignItems: 'center'}}
                                 >
-                                    <img src={ReviewImg} style={{width: 72, height: 72, borderRadius: '50%'}}
+                                    <img src={ReviewImg} alt="Rachel Smith" loading="lazy" decoding="async"
+                                         style={{width: 72, height: 72, borderRadius: '50%'}}
                                          draggable={false}/>
                                     <div>
                                         <p>RACHEL SMITH</p>
@@ -400,17 +396,18 @@ function ReviewSection() {
 }
 
 function StatsItem({title, desc, height, hideBorder}){
+    // one observer for the whole cell (a ref can point at only one element)
     const ref = useRef();
     const isInView = useInView(ref, {once: false});
 
     return (
         <div
+            ref={ref}
             className={hideBorder ? 'stats-item no-border' : 'stats-item'}
             style={{minHeight: height}}
         >
             <motion.p
                 className='change-font'
-                ref={ref}
                 transition={{duration: 0.7, ease: [0.01, 0.95, 0.98, 1]}}
                 initial={{y: '100%', opacity: 0}}
                 animate={isInView ? {y: 0, opacity: 1} : {y: '100%', opacity: 0}}
@@ -418,7 +415,6 @@ function StatsItem({title, desc, height, hideBorder}){
                 {title}
             </motion.p>
             <motion.h3
-                ref={ref}
                 transition={{duration: 0.7, ease: [0.01, 0.95, 0.98, 1]}}
                 initial={{y: '100%', opacity: 0}}
                 animate={isInView ? {y: 0, opacity: 1} : {y: '100%', opacity: 0}}
@@ -430,7 +426,6 @@ function StatsItem({title, desc, height, hideBorder}){
 }
 
 function StatsSection() {
-    const [screenWidth, setScreenWidth] = useState(window.innerWidth);
     const [mobile, setMobile] = useState(window.innerWidth < 992 ? 0 : -173);
     const ref = useRef();
     const isInView = useInView(ref, {once: false});
@@ -454,7 +449,6 @@ function StatsSection() {
 
     useEffect(() => {
         const handleResize = () => {
-            setScreenWidth(window.innerWidth);
             setMobile(window.innerWidth < 992 ? 0 : -173);
         };
         window.addEventListener('resize', handleResize);
@@ -490,12 +484,12 @@ function StatsSection() {
             <div className='stats-grid' style={{borderTop: '1px solid var(--border-dark)'}}>
                 <div className='stats-item large-stats-item'>
                     <p></p>
-                    <a className='change-font primary-link'>Get in touch</a>
+                    <Link to='/contact' className='change-font primary-link'>Get in touch</Link>
                 </div>
-                <div className='stats-item no-border' style={{minHeight: 'calc(130px + 10vw)'}}>
+                {/* `ref` here also drives the "WE ARE / WORTHY" heading animation above */}
+                <div ref={ref} className='stats-item no-border' style={{minHeight: 'calc(130px + 10vw)'}}>
                     <motion.p
                         className='change-font'
-                        ref={ref}
                         transition={{duration: 0.7, ease: [0.01, 0.95, 0.98, 1]}}
                         initial={{y: '100%', opacity: 0}}
                         animate={isInView ? {y: 0, opacity: 1} : {y: '100%', opacity: 0}}
@@ -503,17 +497,16 @@ function StatsSection() {
                         Active users on marketplaces we’ve created
                     </motion.p>
                     <motion.h3
-                        ref={ref}
                         transition={{duration: 0.7, ease: [0.01, 0.95, 0.98, 1]}}
                         initial={{y: '100%', opacity: 0}}
                         animate={isInView ? {y: 0, opacity: 1} : {y: '100%', opacity: 0}}
                     >
-                        1M</motion.h3>
+                        1M
+                    </motion.h3>
                 </div>
-                <div className='stats-item two-cell' style={{minHeight: 'calc(130px + 10vw)'}}>
+                <div ref={ref2} className='stats-item two-cell' style={{minHeight: 'calc(130px + 10vw)'}}>
                     <motion.p
                         className='change-font'
-                        ref={ref2}
                         transition={{duration: 0.7, ease: [0.01, 0.95, 0.98, 1]}}
                         initial={{y: '100%', opacity: 0}}
                         animate={isInView2 ? {y: 0, opacity: 1} : {y: '100%', opacity: 0}}
@@ -521,7 +514,6 @@ function StatsSection() {
                         Our clients raised owning to our design work
                     </motion.p>
                     <motion.h3
-                        ref={ref2}
                         transition={{duration: 0.7, ease: [0.01, 0.95, 0.98, 1]}}
                         initial={{y: '100%', opacity: 0}}
                         animate={isInView2 ? {y: 0, opacity: 1} : {y: '100%', opacity: 0}}
@@ -529,19 +521,9 @@ function StatsSection() {
                         $500M
                     </motion.h3>
                 </div>
-                {
-                    titles.map((title, i) => {
-                        if (i % 2 === 0){
-                            return(
-                                <StatsItem title={title} desc={descs[i]} hideBorder={true}/>
-                            )
-                        } else {
-                            return(
-                                <StatsItem title={title} desc={descs[i]} hideBorder={false}/>
-                            )
-                        }
-                    })
-                }
+                {titles.map((title, i) => (
+                    <StatsItem key={title} title={title} desc={descs[i]} hideBorder={i % 2 === 0}/>
+                ))}
             </div>
             <div className='clients-flexbox'>
                 <div style={{width: 'min-content'}}>
@@ -565,6 +547,7 @@ function StatsSection() {
                             <motion.img
                                 id='review-1'
                                 src={ReviewSvg}
+                                alt=''
                                 draggable={false}
                                 transition={{duration: 0.7, ease: [0.01, 0.95, 0.98, 1]}}
                                 initial={{y: '80%', opacity: 0}}
@@ -593,6 +576,9 @@ function StatsSection() {
                                     <img
                                         className='stats-review-img'
                                         src={ReviewImg2}
+                                        alt="Peter Visser"
+                                        loading="lazy"
+                                        decoding="async"
                                         draggable={false}/>
                                     <div>
                                         <p>PETER VISSER</p>

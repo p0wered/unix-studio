@@ -1,45 +1,5 @@
 
-/**
-@license
-
-Font Family: Hubot Sans
-© 2022, GitHub https://github.com/github/hubot-sans
-with Reserved Font Name "Hubot Sans"
-
-This Font Software is licensed under the SIL Open Font License, Version 1.1.
-This license is copied below, and is also available with a FAQ at:
-http://scripts.sil.org/OFL
-
-**/
-
-@font-face {
-  font-family: 'Hubot Sans';
-  src: url('fonts/HubotSans.ttf') format('ttf'),
-  url('fonts/HubotSans.woff2') format('woff2');
-  font-weight: 200 800;
-  font-display: swap;
-  font-style: normal;
-}
-
-/**
-
-@license
-
-Font Family: Panchang
-Designed by: Barbara Bigosinska, Hitesh Malaviya
-URL: https://www.fontshare.com/fonts/panchang
-© 2024 Indian Type Foundry
-**/
-
-@font-face {
-  font-family: 'Panchang-Variable';
-  src: url('fonts/Panchang-Variable.woff2') format('woff2'),
-  url('fonts/Panchang-Variable.woff') format('woff'),
-  url('fonts/Panchang-Variable.ttf') format('truetype');
-  font-weight: 200 800;
-  font-display: swap;
-  font-style: normal;
-}
+/* Fonts: @font-face rules and preloads live in public/index.html (files in public/fonts). */
 
 /* Main Properties */
 
@@ -256,6 +216,7 @@ nav .logo{
   color: var(--content-light);
   width: 100%;
   height: 100vh;
+  height: 100dvh; /* mobile browsers: exclude the collapsing address bar */
   position: fixed;
   background-color: var(--content-dark);
   z-index: 10;
@@ -298,6 +259,18 @@ footer{
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
+}
+
+/* same line box as the <a> it replaced, so the footer height doesn't change */
+.to-top{
+  display: block;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-size: 24px;
+  cursor: pointer;
 }
 
 .footer-grid{
@@ -775,6 +748,7 @@ footer{
 
 .cases-grid-item img{
   width: 100%;
+  aspect-ratio: 1; /* square sources: reserve the space before the lazy image loads */
   color: var(--content-light);
   border-radius: 50%;
 }
@@ -792,6 +766,7 @@ footer{
 
 .about-image{
   width: 100%;
+  height: auto;
   border-radius: 24px;
   object-fit: cover;
 }
