@@ -13,6 +13,8 @@
 /dist
 
 # misc
+.idea
+.impeccable
 .DS_Store
 .env.local
 .env.development.local
