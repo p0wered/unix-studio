@@ -1,6 +1,6 @@
 # UNIXSTUDIO
 
-## Front-end Project using ReactJS
+## Front-end Project using React + Vite
 
 **Type:** Landing Page \
 **Subject:** Digital Agency \
@@ -14,9 +14,12 @@
 
 ## Project Setup
 
-* ### `Donwload project`
 * ### `npm install`
-* ### `npm start`
+* ### `npm run dev` — dev server on http://localhost:3000
+* ### `npm run build` — production build in `dist/`
+
+Visual regression tests (Playwright): `npx playwright install chromium` once, then `npm run test:visual`.
+See [docs/improvement-plan.md](docs/improvement-plan.md).
 
 ## Preview
 

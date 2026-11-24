@@ -1,9 +1,8 @@
-// @ts-check
-const {defineConfig} = require('@playwright/test');
+import {defineConfig} from '@playwright/test';
 
 const PORT = 4173;
 
-module.exports = defineConfig({
+export default defineConfig({
     testDir: './tests/visual',
     snapshotPathTemplate: '{testDir}/__screenshots__/{arg}{ext}',
     fullyParallel: true,
@@ -19,7 +18,7 @@ module.exports = defineConfig({
         toHaveScreenshot: {maxDiffPixels: 0, animations: 'disabled', caret: 'hide'},
     },
     webServer: {
-        command: `node tests/visual/serve.mjs build ${PORT}`,
+        command: `node tests/visual/serve.mjs dist ${PORT}`,
         port: PORT,
         reuseExistingServer: !process.env.CI,
     },

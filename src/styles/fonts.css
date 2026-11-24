@@ -1,0 +1,26 @@
+/*
+  Font files live in public/fonts (stable URLs, preloaded in index.html).
+
+  Hubot Sans — © 2022 GitHub (https://github.com/github/hubot-sans), SIL Open Font License 1.1,
+  Reserved Font Name "Hubot Sans". Subset to Latin + punctuation and pinned to wdth=100 / slnt=0
+  for the web (only the weight axis is used on the site).
+
+  Panchang — Barbara Bigosinska, Hitesh Malaviya, © 2024 Indian Type Foundry
+  (https://www.fontshare.com/fonts/panchang). Original file, unmodified.
+*/
+
+@font-face {
+  font-family: 'Hubot Sans';
+  src: url('/fonts/HubotSans.woff2') format('woff2');
+  font-weight: 200 800;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Panchang-Variable';
+  src: url('/fonts/Panchang-Variable.woff2') format('woff2');
+  font-weight: 200 800;
+  font-display: swap;
+  font-style: normal;
+}

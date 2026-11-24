@@ -3,7 +3,7 @@ import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
 
-const root = path.resolve(process.argv[2] ?? 'build');
+const root = path.resolve(process.argv[2] ?? 'dist');
 const port = Number(process.argv[3] ?? 4173);
 
 const types = {

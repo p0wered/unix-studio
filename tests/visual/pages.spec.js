@@ -1,6 +1,6 @@
 // Visual regression tests: every page is captured viewport by viewport at several widths.
 // Run `npm run test:visual`; to (re)create the baseline run `npm run test:visual:update`.
-const {test, expect} = require('@playwright/test');
+import {test, expect} from '@playwright/test';
 
 const PAGES = [
     {name: 'home', path: '/'},
@@ -20,7 +20,7 @@ const VIEWPORTS = [
 // Things whose position depends on time or on when the layout was measured (marquee, rotating badge,
 // react-scroll-parallax image layers) are frozen so the shots are stable.
 const FREEZE_CSS = `
-  .parallax .scroller, .get-in-touch img,
+  .parallax .scroller, .circular-text__ring,
   .home-cases .image > div, .footer-bg > div { transform: none !important; }
   /* react-animated-cursor (no class names): follows the mouse and animates on hover */
   #root > div[style*="z-index: 999"][style*="pointer-events: none"] { display: none !important; }

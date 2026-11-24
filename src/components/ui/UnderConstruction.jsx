@@ -1,7 +1,6 @@
-import {Link} from "react-router-dom";
-
-export default function NotFoundPage(){
-    return(
+/** Placeholder for pages that aren't designed yet. */
+export function UnderConstruction({title = 'Under construction', children}) {
+    return (
         <div style={{
             width: '100%',
             height: '100vh',
@@ -11,10 +10,10 @@ export default function NotFoundPage(){
             justifyContent: 'center',
             alignItems: 'center',
             backgroundColor: 'var(--content-dark)',
-            color: 'var(--content-light)'
+            color: 'var(--content-light)',
         }}>
-            <h1 className='change-font' style={{paddingTop: 60}}>Page not found</h1>
-            <Link to='/' className='primary-link'>Back to home</Link>
+            <h1 className='change-font' style={{paddingTop: 60}}>{title}</h1>
+            {children}
         </div>
-    )
+    );
 }

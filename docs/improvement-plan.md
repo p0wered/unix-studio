@@ -46,22 +46,33 @@
 - Фоновые картинки задаются inline-стилями из React, поэтому браузер узнаёт о них только после загрузки JS — preload для фона Hero будет иметь смысл после перехода на Vite/пререндер (фазы 3, 7).
 - Картинки параллакса (`haven`, `footer`) — CSS-фоны `react-scroll-parallax`, нативный `loading="lazy"` к ним не применим; можно грузить через IntersectionObserver в фазе 6.
 
-## Фаза 3. Сборка и зависимости
+## Фаза 3. Сборка и зависимости ✅
 
-- [ ] CRA (deprecated) → Vite.
-- [ ] React 19, `framer-motion` → `motion` v12, `react-router` v7.
-- [ ] Убрать `@motionone/utils`, `resize-observer-polyfill`, `web-vitals`; `hamburger-react` → dependencies, testing-library → devDependencies.
-- [ ] CSS `slick` с CDN (блокирует рендер) → из npm, или заменить `react-slick` на Embla Carousel со стилями один в один.
-- [ ] Code splitting по маршрутам (`React.lazy`).
+- [x] CRA (deprecated) → Vite 8. Команды: `npm run dev`, `npm run build` (в `dist/`), `npm run preview`, `npm run lint`. `index.html` в корне, точка входа `src/main.jsx`, пакет переведён на ES-модули.
+- [x] React 19, `framer-motion` → `motion` 14 (`motion/react`), `react-router-dom` → `react-router` 8. *Версии оказались новее, чем предполагалось в плане.*
+- [x] Убраны `react-scripts`, `@motionone/utils` (`wrap` есть в `motion`), `resize-observer-polyfill`, `web-vitals`, testing-library (тестов не было); `hamburger-react` → dependencies.
+- [x] `react-slick` и CSS с CDN → свой `<Carousel>` на Embla (`embla-carousel-react`): цикл, карточки разной ширины, перетаскивание, клик по карточке прокручивает к ней. Минус ~58 КБ min и блокирующие рендер стили с чужого CDN.
+- [x] Code splitting: каждая страница — отдельный чанк (`React.lazy`), пока чанк грузится — тёмная заглушка на весь экран.
+- [x] ESLint 10 (flat config) с правилами React Hooks и react-refresh — `npm run lint` чистый.
+- [x] `LazyMotion` + `m.*` вместо `motion.*` (только нужные сайту возможности анимации, без drag/layout): −15 КБ gzip.
+- [~] `react-animated-cursor` официально поддерживает только React 18 → разрешён React 19 через `overrides` в `package.json`; работает без ошибок. Заменить на свой курсор — в фазе 6 (там же отключение на тач-устройствах).
 
-## Фаза 4. Архитектура компонентов
+Размер JS (gzip): было одним файлом 126 КБ (CRA, React 18). Стало: общий чанк 109 КБ + роутер 16 КБ + страница: главная ≈ 153 КБ всего, остальные страницы ≈ 128–135 КБ. Главная тяжелее из-за мажорных обновлений (React 19 сам по себе ≈ +20 КБ). Дальнейшее снижение — фаза 6: заменить `react-scroll-parallax` на `useScroll` из `motion` (−7 КБ), свой курсор.
 
-- [ ] Примитив `<Reveal>` на `whileInView` вместо ~40 копий `useRef + useInView + initial/animate/transition`; общая константа easing.
-- [ ] Общий `<Hero>` вместо трёх копий `TitleSection`.
-- [ ] Данные отдельно от разметки (`src/data/`): кейсы, услуги, статистика, соцсети, навигация. Карточки кейсов и рабочие фильтры через `map`.
-- [ ] Убрать циклический импорт `Footer` из `App.js` → `components/layout/`.
-- [ ] Один `ParallaxProvider` на корне; один `<ScrollToTop>` в роутере.
-- [ ] Структура: `app/`, `pages/`, `components/{layout,motion,ui}/`, `data/`, `styles/`.
+## Фаза 4. Архитектура компонентов ✅
+
+- [x] Примитивы `<Reveal>` / `<RevealItem>` (`components/motion/Reveal.jsx`) вместо ~40 копий `useRef + useInView + initial/animate/transition`; общие пресеты (`EASE_OUT`, `REVEAL_UP`, …) в `components/motion/presets.js`. Анимации те же самые (те же варианты и transition), скриншоты совпадают попиксельно.
+- [x] Общий `<Hero>` вместо трёх копий `TitleSection`; `<HeroStar>`, `<Testimonial>`, `<StatCell>`, `<Separator wide dark>`, `<UnderConstruction>`.
+- [x] «Get in touch» — `CircularText` из React Bits (`components/ui/CircularText.jsx`, лицензия MIT + Commons Clause — заголовок сохранён) вместо вращающейся PNG: живой текст, ускоряется при наведении, уважает `prefers-reduced-motion`, вращение ставится на паузу вне экрана. Внешний вид подогнан под старый бейдж (чёрный круг, текст по кругу ×3, звезда в центре). Локальное изменение компонента — опция `stretch`.
+- [x] Данные отдельно от разметки (`src/data/`): навигация, соцсети, контакты, услуги, статистика, отзывы, кейсы.
+- [x] Фильтры кейсов работают: выбор хранится в URL (`/cases?category=design`), счётчики считаются из данных, пустые категории скрыты, выбранная кнопка подсвечена так же, как при наведении. «VIEW ALL CASES» сбрасывает фильтр.
+- [x] Циклический импорт `Footer` из `App` убран; один `ParallaxProvider` на корне; один `<ScrollToTop>` (мгновенный переход наверх при смене страницы, без «проезда» со старой позиции).
+- [x] Структура: `pages/`, `components/{layout,motion,ui}/`, `data/`, `hooks/`, `styles/`.
+- [x] Дубликат `id="review-1"` (две цитаты на главной) → класс `.review-quote`.
+
+Видимые изменения фаз 3–4 (осознанные): новый бейдж «Get in touch»; на странице кейсов кнопки фильтров показывают реальные числа (ALL [6], DESIGN [1], SPORT [1], OTHER [4]), «ALL» подсвечена, поэтому на узких экранах всё ниже кнопок поднялось на ряд. Остальное — попиксельно как было.
+
+Контент, который нужно заполнить (`src/data/cases.js`, помечено `TODO(content)`): у Baillat описание от Elektra, три карточки — копии Elektra.
 
 ## Фаза 5. CSS
 
