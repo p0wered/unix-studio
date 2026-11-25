@@ -60,7 +60,7 @@ export function NavBar() {
 
     return (
         <>
-            <m.nav className={styles.nav} initial={{opacity: 0}} animate={{opacity: 1}} transition={{duration: 1, type: 'spring'}}>
+            <m.nav className={styles.nav} aria-label='Main' initial={{opacity: 0}} animate={{opacity: 1}} transition={{duration: 1, type: 'spring'}}>
                 <div>
                     <NavLink className={`${styles.logo} primary-link`} to='/' onClick={closeMenu}>UNIXSTUDIO</NavLink>
                 </div>
@@ -73,7 +73,8 @@ export function NavBar() {
                     <Hamburger toggled={menuOpen} toggle={setMenuOpen} size={26} duration={0.3} label='Toggle menu'/>
                 </div>
             </m.nav>
-            <m.div
+            <m.nav
+                aria-label='Menu'
                 variants={menuVariants}
                 initial='hidden'
                 animate={menuOpen ? 'visible' : 'hidden'}
@@ -86,13 +87,13 @@ export function NavBar() {
                     <Fragment key={to}>
                         <m.div variants={menuLinkVariants}>
                             <NavLink to={to} onClick={closeMenu}>
-                                <h2>{label}</h2>
+                                <span className={`h2 ${styles.mobileLinkText}`}>{label}</span>
                             </NavLink>
                         </m.div>
                         <Separator wide dark/>
                     </Fragment>
                 ))}
-            </m.div>
+            </m.nav>
         </>
     );
 }

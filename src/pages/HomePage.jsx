@@ -11,7 +11,6 @@ import {Hero, HeroStar} from '../components/ui/Hero';
 import {Carousel} from '../components/ui/Carousel';
 import {Testimonial} from '../components/ui/Testimonial';
 import {StatCell, StatContactCell} from '../components/ui/StatCell';
-import {Footer} from '../components/layout/Footer';
 import {useMediaQuery} from '../hooks/useMediaQuery';
 import {CAROUSEL_CASES, HIGHLIGHT_PROJECT} from '../data/cases';
 import {CEO_REVIEW, CLIENT_REVIEW, HIGHLIGHT_STATS, SERVICES, STATS} from '../data/home';
@@ -28,7 +27,7 @@ function AboutSection() {
             <div className={`${styles.about} container`}>
                 <div className={styles.aboutHeadings}>
                     <AnimatedHeading text='LET’S FIND YOUR DESIGN PRODUCT' as='h2' inView/>
-                    <AnimatedHeading text='SAFE AND BENEFICIAL DESIGN FOR HUMANITY' as='h4' inView/>
+                    <AnimatedHeading text='SAFE AND BENEFICIAL DESIGN FOR HUMANITY' as='h4' tag='p' inView/>
                 </div>
                 <Reveal className={`${styles.aboutText} change-font`}>
                     <p className={styles.narrow}>
@@ -77,7 +76,7 @@ function ProjectSection() {
             </Reveal>
             <Reveal className={styles.projectCaption} variants={FADE} transition={{duration: 0.4, delay: 0.1}}>
                 <div className={styles.projectName}>
-                    <h4>{project.title}</h4>
+                    <h3 className='h4'>{project.title}</h3>
                     <p className={`change-font ${styles.projectSubject}`}>{project.subject}</p>
                 </div>
                 <a href={project.url} target='_blank' rel='noopener noreferrer' className='change-font primary-link'>
@@ -94,7 +93,7 @@ function MarqueeRow({velocity, className = ''}) {
     return (
         <ParallaxText baseVelocity={velocity}>
             <div className={`${styles.marqueeRow} ${className}`}>
-                <h2>UNIXSTUDIO</h2>
+                <span className='h2'>UNIXSTUDIO</span>
                 <img className={styles.marqueeStar} src={StarDarkImg} alt='' draggable={false}/>
             </div>
         </ParallaxText>
@@ -112,7 +111,7 @@ function CasesSection() {
                 <div className={`${styles.casesHeading} container`}>
                     <AnimatedHeading text='WITNESS THE BEAUTY' as='h2' inView/>
                     <div className={styles.casesSubheading}>
-                        <AnimatedHeading text='SAFE AND BENEFICIAL DESIGN FOR HUMANITY' as='h4' inView/>
+                        <AnimatedHeading text='SAFE AND BENEFICIAL DESIGN FOR HUMANITY' as='h4' tag='p' inView/>
                     </div>
                 </div>
                 <Reveal
@@ -165,7 +164,7 @@ function StatsSection() {
         <div className={`${styles.stats} container`}>
             <div>
                 <div className={styles.statsHeading}>
-                    <AnimatedHeadingLetters text='WE ARE' as='h1' inView/>
+                    <AnimatedHeadingLetters text='WE ARE' as='h1' tag='h2' inView/>
                     <m.div
                         className={styles.worthyRow}
                         initial={{translateX: offset}}
@@ -180,7 +179,7 @@ function StatsSection() {
                         >
                             Born in UNIX
                         </m.p>
-                        <AnimatedHeadingLetters text='WORTHY' as='h1' inView/>
+                        <AnimatedHeadingLetters text='WORTHY' as='h1' tag='p' inView/>
                     </m.div>
                 </div>
             </div>
@@ -194,7 +193,7 @@ function StatsSection() {
             </div>
             <div className={styles.clients}>
                 <div className={styles.clientsHeading}>
-                    <AnimatedHeading text='OUR CLIENTS' as='h1' inView/>
+                    <AnimatedHeading text='OUR CLIENTS' as='h1' tag='h2' inView/>
                 </div>
                 <Reveal as='p' className='change-font'>ALL AROUND THE GLOBE</Reveal>
             </div>
@@ -223,7 +222,6 @@ export default function HomePage() {
             <CasesSection/>
             <CeoSection/>
             <StatsSection/>
-            <Footer/>
         </div>
     );
 }

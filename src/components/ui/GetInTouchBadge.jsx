@@ -25,8 +25,11 @@ export function GetInTouchBadge() {
     const size = compact ? 120 : 160;
 
     return (
-        <Link to='/contact' className={styles.badge} aria-label='Get in touch' style={{width: size, height: size}}>
+        <Link to='/contact' className={styles.badge} style={{width: size, height: size}}>
+            {/* the spinning ring repeats the text three times: give assistive tech a single plain label */}
+            <span className='sr-only'>Get in touch</span>
             <m.div
+                aria-hidden='true'
                 className={styles.disc}
                 style={{width: size * DISC, height: size * DISC}}
                 initial={{opacity: 0}}

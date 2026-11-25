@@ -3,7 +3,6 @@ import {Reveal} from '../components/motion/Reveal';
 import {EASE_OUT} from '../components/motion/presets';
 import {Hero} from '../components/ui/Hero';
 import {Carousel} from '../components/ui/Carousel';
-import {Footer} from '../components/layout/Footer';
 import {CAROUSEL_CASES} from '../data/cases';
 import AiImage from '../assets/ai.webp';
 import AboutImg from '../assets/about-img.webp';
@@ -47,7 +46,7 @@ function ImageSection() {
     return (
         <section className={`${styles.imageSection} container`}>
             <div className='flex-center'>
-                <img className={styles.image} src={AboutImg} alt='' width={1280} height={700} loading='lazy' decoding='async'/>
+                <img className={styles.image} src={AboutImg} alt='The Unix Studio team discussing a project at a laptop' width={1280} height={700} loading='lazy' decoding='async'/>
             </div>
         </section>
     );
@@ -58,13 +57,13 @@ function QuoteSection() {
         <section className={`${styles.quote} container`}>
             <div className={`${styles.quoteInner} flex-center`}>
                 <AnimatedHeadingLetters text='TESTIMONAL' as='h2' inView/>
-                <h3 className='change-font'>
+                <p className={`h3 change-font ${styles.quoteText}`}>
                     I have been hiring people in this space for a number of years
-                </h3>
-                <h3 className='change-font'>
+                </p>
+                <p className={`h3 change-font ${styles.quoteText}`}>
                     And I have never seen this level of professionalism. It really feels like
                     you are working with a team that can get the job done
-                </h3>
+                </p>
             </div>
         </section>
     );
@@ -99,7 +98,6 @@ export default function AboutPage() {
             <AiSection/>
             <ImageSection/>
             <QuoteSection/>
-            <Footer/>
         </>
     );
 }

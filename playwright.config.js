@@ -16,9 +16,10 @@ export default defineConfig({
         deviceScaleFactor: 1,
     },
     expect: {
-        // strict: renders are deterministic, so any changed pixel is a real change to review.
+        // strict: up to 100 changed pixels is GPU raster noise on images; real changes seen so far were
+        // hundreds (a changed word) to tens of thousands (a colour) of pixels.
         // threshold 0.01 (default 0.2) also catches subtle colour changes, e.g. one shade of dark grey for another
-        toHaveScreenshot: {maxDiffPixels: 0, threshold: 0.01, animations: 'disabled', caret: 'hide'},
+        toHaveScreenshot: {maxDiffPixels: 100, threshold: 0.01, animations: 'disabled', caret: 'hide'},
     },
     webServer: {
         command: `node tests/visual/serve.mjs dist ${PORT}`,

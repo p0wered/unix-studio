@@ -1,4 +1,4 @@
-// Minimal static server with SPA fallback for visual tests: node serve.mjs <dir> <port>
+// Minimal static server for the prerendered build (visual tests): node serve.mjs <dir> <port>
 import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -24,10 +24,16 @@ const types = {
 
 http.createServer((req, res) => {
     const urlPath = decodeURIComponent(new URL(req.url, 'http://x').pathname);
+    // like a static host: a directory serves its index.html, anything unknown the prerendered 404.html
     let file = path.join(root, urlPath);
-    if (!file.startsWith(root) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) {
-        file = path.join(root, 'index.html');
+    if (file.startsWith(root) && fs.existsSync(file) && fs.statSync(file).isDirectory()) {
+        file = path.join(file, 'index.html');
     }
-    res.writeHead(200, {'Content-Type': types[path.extname(file)] ?? 'application/octet-stream'});
+    let status = 200;
+    if (!file.startsWith(root) || !fs.existsSync(file)) {
+        file = path.join(root, '404.html');
+        status = 404;
+    }
+    res.writeHead(status, {'Content-Type': types[path.extname(file)] ?? 'application/octet-stream'});
     fs.createReadStream(file).pipe(res);
 }).listen(port, () => console.log(`serving ${root} on http://localhost:${port}`));

@@ -1,5 +1,5 @@
 import {StrictMode} from 'react';
-import {createRoot} from 'react-dom/client';
+import {createRoot, hydrateRoot} from 'react-dom/client';
 import {MotionGlobalConfig} from 'motion/react';
 import './styles/fonts.css';
 import './styles/base.css';
@@ -10,8 +10,16 @@ if (window.__VISUAL_TEST__) {
     MotionGlobalConfig.skipAnimations = true;
 }
 
-createRoot(document.getElementById('root')).render(
+const root = document.getElementById('root');
+const app = (
     <StrictMode>
         <App/>
     </StrictMode>
 );
+
+// Built pages come prerendered (scripts/prerender.js): attach to that HTML. The dev server serves an empty root.
+if (root.hasChildNodes()) {
+    hydrateRoot(root, app);
+} else {
+    createRoot(root).render(app);
+}

@@ -62,7 +62,8 @@ export function ParallaxText({ children, baseVelocity = 100 }) {
     }, [inView, reduceMotion, baseVelocity, baseX, velocityFactor]);
 
     return (
-        <div ref={ref} className={styles.parallax}>
+        // decorative: the same word repeated, hidden from screen readers
+        <div ref={ref} className={styles.parallax} aria-hidden="true">
             {/* data-testid: frozen in the visual tests (moves every frame) */}
             <m.div className={styles.scroller} style={{x}} data-testid="marquee">
                 <span>{children}</span>

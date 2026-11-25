@@ -53,11 +53,11 @@ export function Footer() {
                     </Reveal>
                     <Reveal>
                         <p className={`change-font ${styles.label}`}>OUR TEAM IS</p>
-                        <h4>{CONTACTS.location}</h4>
+                        <p className='h4'>{CONTACTS.location}</p>
                     </Reveal>
                     <Reveal delay={0.1}>
                         <p className={`change-font ${styles.label}`}>DROP US A LINE</p>
-                        <h4 className={`change-font ${styles.email}`}>{CONTACTS.email}</h4>
+                        <p className={`h4 change-font ${styles.email}`}>{CONTACTS.email}</p>
                     </Reveal>
                     <Reveal
                         className={styles.ctaContainer}
@@ -81,7 +81,8 @@ export function Footer() {
                         >
                             <img src={ArrowUp} alt=''/>
                         </button>
-                        <p className={`change-font ${styles.copyright}`}>
+                        {/* the year comes from the visitor's clock; the prerendered HTML has the build year */}
+                        <p className={`change-font ${styles.copyright}`} suppressHydrationWarning>
                             © {new Date().getFullYear()} Unix Studio. — Product Design Agency
                         </p>
                     </Reveal>

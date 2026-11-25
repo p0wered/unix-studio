@@ -22,7 +22,12 @@ export default [
         },
     },
     {
-        files: ['playwright.config.js', 'tests/**/*.{js,mjs}', 'vite.config.js', 'eslint.config.js'],
+        // build-time renderer, never hot-reloaded
+        files: ['src/entry-server.jsx'],
+        rules: {'react-refresh/only-export-components': 'off'},
+    },
+    {
+        files: ['playwright.config.js', 'tests/**/*.{js,mjs}', 'scripts/**/*.js', 'vite.config.js', 'eslint.config.js'],
         languageOptions: {globals: globals.node},
     },
 ];

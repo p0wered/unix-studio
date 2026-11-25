@@ -1,8 +1,10 @@
-import {lazy, Suspense} from 'react';
+import {lazy} from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router';
 import {domAnimation, LazyMotion, MotionConfig} from 'motion/react';
 import AnimatedCursor from 'react-animated-cursor';
 import {NavBar} from './components/layout/NavBar';
+import {PageLayout} from './components/layout/PageLayout';
+import {PageMeta} from './components/layout/PageMeta';
 import {ScrollToTop} from './components/layout/ScrollToTop';
 import {useMediaQuery} from './hooks/useMediaQuery';
 
@@ -33,30 +35,42 @@ function Cursor() {
     return finePointer ? <AnimatedCursor {...cursorProps}/> : null;
 }
 
-export default function App() {
+/** Everything inside the router: shared by the browser (BrowserRouter) and the prerender (StaticRouter). */
+export function AppShell() {
     return (
         // Only the animation features the site uses (no drag / layout animations): a smaller bundle.
         // `strict` throws if a full `motion.*` component sneaks in instead of `m.*`.
         <LazyMotion features={domAnimation} strict>
             {/* "Reduce motion" in the OS: transform animations are skipped, fades stay */}
             <MotionConfig reducedMotion='user'>
-                <BrowserRouter>
-                    <ScrollToTop/>
-                    <Cursor/>
+                <a href='#main' className='skip-link'>Skip to content</a>
+                <ScrollToTop/>
+                <PageMeta/>
+                <Cursor/>
+                <header>
                     <NavBar/>
-                    {/* dark, full-height placeholder so the page doesn't flash white while its chunk loads */}
-                    <Suspense fallback={<div className='page-fallback'/>}>
-                        <Routes>
-                            <Route path='/' element={<HomePage/>}/>
-                            <Route path='/cases' element={<CasesPage/>}/>
-                            <Route path='/about' element={<AboutPage/>}/>
-                            <Route path='/services' element={<ServicesPage/>}/>
-                            <Route path='/contact' element={<ContactPage/>}/>
-                            <Route path='*' element={<NotFoundPage/>}/>
-                        </Routes>
-                    </Suspense>
-                </BrowserRouter>
+                </header>
+                <Routes>
+                    <Route element={<PageLayout footer/>}>
+                        <Route path='/' element={<HomePage/>}/>
+                        <Route path='/cases' element={<CasesPage/>}/>
+                        <Route path='/about' element={<AboutPage/>}/>
+                    </Route>
+                    <Route element={<PageLayout/>}>
+                        <Route path='/services' element={<ServicesPage/>}/>
+                        <Route path='/contact' element={<ContactPage/>}/>
+                        <Route path='*' element={<NotFoundPage/>}/>
+                    </Route>
+                </Routes>
             </MotionConfig>
         </LazyMotion>
+    );
+}
+
+export default function App() {
+    return (
+        <BrowserRouter>
+            <AppShell/>
+        </BrowserRouter>
     );
 }

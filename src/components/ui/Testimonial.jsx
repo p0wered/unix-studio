@@ -28,7 +28,7 @@ export function Testimonial({review, size = 'small'}) {
                 inView={quoteInView}
             />
             <div className={styles.body}>
-                <Reveal as='h4' ref={quoteRef} className='change-font' inView={quoteInView}>
+                <Reveal as='blockquote' ref={quoteRef} className='h4 change-font' inView={quoteInView}>
                     {review.quote}
                 </Reveal>
                 <Reveal delay={0.3} className={styles.author}>

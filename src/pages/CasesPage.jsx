@@ -4,7 +4,7 @@ import {AnimatedHeadingLetters} from '../components/motion/AnimatedHeading';
 import {Reveal} from '../components/motion/Reveal';
 import {EASE_OUT, FADE} from '../components/motion/presets';
 import {Hero} from '../components/ui/Hero';
-import {Footer} from '../components/layout/Footer';
+import {useHydrated} from '../hooks/useHydrated';
 import {CASE_CATEGORIES, CASE_STUDIES, FEATURED_TEXT} from '../data/cases';
 import styles from './CasesPage.module.css';
 
@@ -61,7 +61,9 @@ const FILTERS = [
 /** Selected filter lives in the URL (?category=design) so it survives reloads and can be shared. */
 function useCaseFilter() {
     const [params] = useSearchParams();
-    const requested = params.get(FILTER_PARAM);
+    // the prerendered /cases page shows all cases; apply ?category= only after hydration
+    const hydrated = useHydrated();
+    const requested = hydrated ? params.get(FILTER_PARAM) : null;
     // unknown or empty categories fall back to "all"
     const active = FILTERS.some((f) => f.id === requested) ? requested : 'all';
     const cases = active === 'all' ? CASE_STUDIES : CASE_STUDIES.filter((c) => c.category === active);
@@ -129,7 +131,7 @@ export default function CasesPage() {
                 title={
                     <div>
                         <AnimatedHeadingLetters text='OUR CASES' as='h1'/>
-                        <AnimatedHeadingLetters text='/SHOT' as='h1' className={styles.outlined}/>
+                        <AnimatedHeadingLetters text='/SHOT' as='h1' tag='p' className={styles.outlined}/>
                     </div>
                 }
                 aside={<AwardCircles/>}
@@ -137,7 +139,6 @@ export default function CasesPage() {
                 lightText
             />
             <CasesSection/>
-            <Footer/>
         </div>
     );
 }

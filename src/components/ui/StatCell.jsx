@@ -18,8 +18,9 @@ export function StatCell({stat, tall, wide, leftColumn, ref, inView}) {
             variants={GROUP}
             className={cx(styles.cell, tall && styles.tall, wide && styles.wide, leftColumn && styles.leftColumn)}
         >
-            <RevealItem as='p' className='change-font'>{stat.title}</RevealItem>
-            <RevealItem as='h3'>{stat.value}</RevealItem>
+            <RevealItem as='p' className={`change-font ${styles.caption}`}>{stat.title}</RevealItem>
+            {/* a number, not a heading: looks like h3 */}
+            <RevealItem as='p' className='h3'>{stat.value}</RevealItem>
         </Reveal>
     );
 }
