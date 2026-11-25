@@ -10,7 +10,7 @@ Landing site for a digital agency: home, cases (with category filters), about, p
 ![#c8ea21](https://placehold.co/15x15/c8ea21/c8ea21.png) `#c8ea21`
 (design tokens: `src/styles/base.css`)
 
-![Preview](docs/preview.webp)
+![preview.jpg](.github/assets/preview.jpg)
 
 ## Getting started
 
