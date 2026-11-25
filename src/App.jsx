@@ -1,10 +1,10 @@
 import {lazy, Suspense} from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router';
-import {ParallaxProvider} from 'react-scroll-parallax';
-import {domAnimation, LazyMotion} from 'motion/react';
+import {domAnimation, LazyMotion, MotionConfig} from 'motion/react';
 import AnimatedCursor from 'react-animated-cursor';
 import {NavBar} from './components/layout/NavBar';
 import {ScrollToTop} from './components/layout/ScrollToTop';
+import {useMediaQuery} from './hooks/useMediaQuery';
 
 // Every page is its own chunk: the first visit downloads only the page that was opened.
 const HomePage = lazy(() => import('./pages/HomePage'));
@@ -24,15 +24,25 @@ const cursorProps = {
     outerStyle: {backgroundColor: 'var(--cursor-color)', mixBlendMode: 'exclusion'},
 };
 
+/**
+ * The custom cursor only makes sense with a mouse. react-animated-cursor's own touch detection
+ * (user-agent sniffing) never fires, so on phones it rendered a dot and hid nothing; gate it here.
+ */
+function Cursor() {
+    const finePointer = useMediaQuery('(hover: hover) and (pointer: fine)');
+    return finePointer ? <AnimatedCursor {...cursorProps}/> : null;
+}
+
 export default function App() {
     return (
         // Only the animation features the site uses (no drag / layout animations): a smaller bundle.
         // `strict` throws if a full `motion.*` component sneaks in instead of `m.*`.
         <LazyMotion features={domAnimation} strict>
-            <BrowserRouter>
-                <ParallaxProvider>
+            {/* "Reduce motion" in the OS: transform animations are skipped, fades stay */}
+            <MotionConfig reducedMotion='user'>
+                <BrowserRouter>
                     <ScrollToTop/>
-                    <AnimatedCursor {...cursorProps}/>
+                    <Cursor/>
                     <NavBar/>
                     {/* dark, full-height placeholder so the page doesn't flash white while its chunk loads */}
                     <Suspense fallback={<div className='page-fallback'/>}>
@@ -45,8 +55,8 @@ export default function App() {
                             <Route path='*' element={<NotFoundPage/>}/>
                         </Routes>
                     </Suspense>
-                </ParallaxProvider>
-            </BrowserRouter>
+                </BrowserRouter>
+            </MotionConfig>
         </LazyMotion>
     );
 }

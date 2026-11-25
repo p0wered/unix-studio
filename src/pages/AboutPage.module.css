@@ -42,6 +42,9 @@
   background-color: var(--content-dark);
   background-image: url('../assets/glow-lower.webp');
   background-image: image-set(url('../assets/glow-lower.avif') type('image/avif'), url('../assets/glow-lower.webp') type('image/webp'));
+  /* natural size (1920px) from the left edge, as designed; wider screens stretch it instead of repeating it */
+  background-size: max(1920px, 100%) auto;
+  background-repeat: no-repeat;
 }
 
 .image {

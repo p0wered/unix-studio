@@ -15,6 +15,8 @@ const VIEWPORTS = [
     {name: 'tablet', width: 860, height: 1000},
     {name: 'laptop', width: 1280, height: 800},
     {name: 'desktop', width: 1600, height: 900},
+    // ultrawide 34" (3440x1440): backgrounds scaled by width get cropped differently
+    {name: 'ultrawide', width: 3440, height: 1440},
 ];
 
 // Things whose position depends on time or on when the layout was measured (marquee, rotating badge text,
@@ -36,14 +38,24 @@ async function settle(page) {
             const r = img.getBoundingClientRect();
             return r.width > 0 && r.bottom > -innerHeight && r.top < innerHeight * 2;
         };
-        const pending = [...document.images].filter((img) => !img.complete && nearViewport(img))
+        const visible = [...document.images].filter(nearViewport);
+        const pending = visible.filter((img) => !img.complete)
             .map((img) => new Promise((resolve) => { img.onload = img.onerror = resolve; }));
         await Promise.race([Promise.all(pending), new Promise((resolve) => setTimeout(resolve, 5000))]);
+        // fully decoded, not just downloaded (decoding="async" images can paint a frame later).
+        // Only loaded ones: a lazy image that never starts loading (e.g. a carousel card off to the side)
+        // would keep decode() pending forever.
+        const decoded = visible.filter((img) => img.complete && img.naturalWidth > 0).map((img) => img.decode().catch(() => {}));
+        await Promise.race([Promise.all(decoded), new Promise((resolve) => setTimeout(resolve, 3000))]);
     });
     await page.waitForLoadState('networkidle');
-    // IntersectionObserver callbacks + one framer-motion frame
-    await page.waitForTimeout(400);
+    // IntersectionObserver callbacks + motion frames, and time for Chrome to re-raster images in full
+    // quality after the scroll (it uses cheaper image filtering while scrolling)
+    await page.waitForTimeout(700);
 }
+
+// the home page is ~10 screens long, each settled for ~1s
+test.describe.configure({timeout: 90_000});
 
 for (const vp of VIEWPORTS) {
     test.describe(vp.name, () => {

@@ -1,9 +1,9 @@
 import {useRef} from 'react';
 import {Link} from 'react-router';
 import {m, useInView} from 'motion/react';
-import {ParallaxBanner, ParallaxBannerLayer} from 'react-scroll-parallax';
 import {AnimatedHeading, AnimatedHeadingLetters} from '../components/motion/AnimatedHeading';
 import {ParallaxText} from '../components/motion/ParallaxText';
+import {ParallaxImage} from '../components/motion/ParallaxImage';
 import {Reveal} from '../components/motion/Reveal';
 import {Separator} from '../components/motion/Separator';
 import {EASE_OUT, FADE} from '../components/motion/presets';
@@ -73,10 +73,7 @@ function ProjectSection() {
                 <AnimatedHeading text='BEHOLD OUR GREATEST PROJECT EVER' as='h2' inView/>
             </div>
             <Reveal variants={ZOOM_IN} transition={{duration: 0.7}}>
-                <ParallaxBanner className={styles.projectImage}>
-                    {/* testId: frozen in the visual tests (its offset depends on when the layout was measured) */}
-                    <ParallaxBannerLayer image={project.image} speed={-12} testId='parallax-layer'/>
-                </ParallaxBanner>
+                <ParallaxImage image={project.image} speed={-12} className={styles.projectImage}/>
             </Reveal>
             <Reveal className={styles.projectCaption} variants={FADE} transition={{duration: 0.4, delay: 0.1}}>
                 <div className={styles.projectName}>

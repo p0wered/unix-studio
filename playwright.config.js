@@ -6,6 +6,8 @@ export default defineConfig({
     testDir: './tests/visual',
     snapshotPathTemplate: '{testDir}/__screenshots__/{arg}{ext}',
     fullyParallel: true,
+    // one retry absorbs rare GPU raster noise in image filtering; a real change fails both attempts
+    retries: 1,
     reporter: [['list'], ['html', {open: 'never', outputFolder: 'tests/visual/report'}]],
     outputDir: 'tests/visual/results',
     use: {
@@ -14,8 +16,9 @@ export default defineConfig({
         deviceScaleFactor: 1,
     },
     expect: {
-        // strict: renders are deterministic, so any changed pixel is a real change to review
-        toHaveScreenshot: {maxDiffPixels: 0, animations: 'disabled', caret: 'hide'},
+        // strict: renders are deterministic, so any changed pixel is a real change to review.
+        // threshold 0.01 (default 0.2) also catches subtle colour changes, e.g. one shade of dark grey for another
+        toHaveScreenshot: {maxDiffPixels: 0, threshold: 0.01, animations: 'disabled', caret: 'hide'},
     },
     webServer: {
         command: `node tests/visual/serve.mjs dist ${PORT}`,

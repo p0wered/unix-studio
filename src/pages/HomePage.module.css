@@ -131,7 +131,9 @@
   background-image: image-set(url('../assets/glow-lower.avif') type('image/avif'), url('../assets/glow-lower.webp') type('image/webp'));
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: 0;
+  /* anchored to the top: on very wide screens the image is scaled by width and taller than the section;
+     centring it cut off the soft top edge of the glow */
+  background-position: 0 0;
   overflow: hidden;
 }
 

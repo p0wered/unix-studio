@@ -1,7 +1,7 @@
 import {Link} from 'react-router';
 import {m} from 'motion/react';
-import {ParallaxBanner, ParallaxBannerLayer} from 'react-scroll-parallax';
 import {Reveal} from '../motion/Reveal';
+import {ParallaxImage} from '../motion/ParallaxImage';
 import {EASE_OUT} from '../motion/presets';
 import {CONTACTS, SOCIAL_LINKS} from '../../data/navigation';
 import FooterImg from '../../assets/footer.webp';
@@ -21,6 +21,12 @@ const linkVariants = {
     hidden: {y: '100%', opacity: 0},
     visible: {y: 0, opacity: 1, transition: {ease: EASE_OUT}},
 };
+
+// respects "reduce motion" in the OS
+const scrollToTop = () => window.scrollTo({
+    top: 0,
+    behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+});
 
 export function Footer() {
     return (
@@ -71,7 +77,7 @@ export function Footer() {
                             type='button'
                             className={styles.toTop}
                             aria-label='Back to top'
-                            onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}
+                            onClick={scrollToTop}
                         >
                             <img src={ArrowUp} alt=''/>
                         </button>
@@ -81,12 +87,7 @@ export function Footer() {
                     </Reveal>
                 </div>
             </div>
-            <ParallaxBanner>
-                <div className={styles.image}>
-                    {/* testId: frozen in the visual tests (its offset depends on when the layout was measured) */}
-                    <ParallaxBannerLayer image={FooterImg} speed={-15} testId='parallax-layer'/>
-                </div>
-            </ParallaxBanner>
+            <ParallaxImage image={FooterImg} speed={-15} className={styles.image}/>
         </footer>
     );
 }
