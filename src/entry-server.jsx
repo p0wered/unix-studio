@@ -12,7 +12,7 @@ export async function render(url) {
     const {prelude} = await prerender(
         <StrictMode>
             <StaticRouter location={url}>
-                <AppShell/>
+                <AppShell />
             </StaticRouter>
         </StrictMode>,
         {progressiveChunkSize: Number.MAX_SAFE_INTEGER},

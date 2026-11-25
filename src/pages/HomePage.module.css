@@ -128,7 +128,10 @@
   flex-direction: column;
   background-color: var(--content-dark);
   background-image: url('../assets/glow-lower.webp');
-  background-image: image-set(url('../assets/glow-lower.avif') type('image/avif'), url('../assets/glow-lower.webp') type('image/webp'));
+  background-image: image-set(
+    url('../assets/glow-lower.avif') type('image/avif'),
+    url('../assets/glow-lower.webp') type('image/webp')
+  );
   background-repeat: no-repeat;
   background-size: cover;
   /* anchored to the top: on very wide screens the image is scaled by width and taller than the section;

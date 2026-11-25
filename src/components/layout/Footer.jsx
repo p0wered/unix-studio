@@ -23,10 +23,11 @@ const linkVariants = {
 };
 
 // respects "reduce motion" in the OS
-const scrollToTop = () => window.scrollTo({
-    top: 0,
-    behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
-});
+const scrollToTop = () =>
+    window.scrollTo({
+        top: 0,
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+    });
 
 export function Footer() {
     return (
@@ -69,17 +70,12 @@ export function Footer() {
                     >
                         <Link to='/contact' className={`${styles.cta} change-font`}>
                             <p>BECOME A CLIENT</p>
-                            <img src={FooterArrow} alt=''/>
+                            <img src={FooterArrow} alt='' />
                         </Link>
                     </Reveal>
                     <Reveal className={styles.bottom}>
-                        <button
-                            type='button'
-                            className={styles.toTop}
-                            aria-label='Back to top'
-                            onClick={scrollToTop}
-                        >
-                            <img src={ArrowUp} alt=''/>
+                        <button type='button' className={styles.toTop} aria-label='Back to top' onClick={scrollToTop}>
+                            <img src={ArrowUp} alt='' />
                         </button>
                         {/* the year comes from the visitor's clock; the prerendered HTML has the build year */}
                         <p className={`change-font ${styles.copyright}`} suppressHydrationWarning>
@@ -88,7 +84,7 @@ export function Footer() {
                     </Reveal>
                 </div>
             </div>
-            <ParallaxImage image={FooterImg} speed={-15} className={styles.image}/>
+            <ParallaxImage image={FooterImg} speed={-15} className={styles.image} />
         </footer>
     );
 }

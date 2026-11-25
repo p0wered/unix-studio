@@ -37,7 +37,7 @@ export const CASE_CATEGORIES = [
 ];
 
 export const FEATURED_TEXT =
-    'We build engaging user experience forearly-stage startups by connecting thedots between users’ needs and theclient’s business model.';
+    'We build engaging user experience for early-stage startups by connecting the dots between users’ needs and the client’s business model.';
 
 const ELEKTRA_TEXT =
     'The Elektra Virtual Museum (EVM) goes far beyond the traditional definition of a museum, as it is accessible everywhere, by everyone. By building this museum, ELEKTRA aims to share its 20 years of expertise in the field of media arts and offer visitors a unique experience.';
@@ -49,7 +49,7 @@ const STENGER_TEXT =
 export const CASE_STUDIES = [
     {id: 'elektra-2024', title: 'ELEKTRA', year: 2024, category: 'other', image: ElektraRound, text: ELEKTRA_TEXT},
     // TODO(content): Baillat still uses the Elektra description
-    {id: 'baillat-2023', title: 'BALLIAT', year: 2023, category: 'design', image: BaillatRound, text: ELEKTRA_TEXT},
+    {id: 'baillat-2023', title: 'BAILLAT', year: 2023, category: 'design', image: BaillatRound, text: ELEKTRA_TEXT},
     {id: 'stenger-2022', title: 'STENGER', year: 2022, category: 'sport', image: StengerRound, text: STENGER_TEXT},
     // TODO(content): placeholder copies of Elektra until the real cases are added
     {id: 'placeholder-1', title: 'ELEKTRA', year: 2023, category: 'other', image: ElektraRound, text: ELEKTRA_TEXT},

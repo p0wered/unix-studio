@@ -32,10 +32,16 @@ export function Carousel({items}) {
                                     draggable={false}
                                 />
                                 <div className={styles.caption}>
-                                    {item.to
-                                        ? <Link to={item.to} className={`primary-link ${styles.title}`}>{item.title}</Link>
-                                        : <p className={`primary-link ${styles.title}`}>{item.title}</p>}
-                                    {item.subtitle && <p className={`change-font ${styles.subtitle}`}>{item.subtitle}</p>}
+                                    {item.to ? (
+                                        <Link to={item.to} className={`primary-link ${styles.title}`}>
+                                            {item.title}
+                                        </Link>
+                                    ) : (
+                                        <p className={`primary-link ${styles.title}`}>{item.title}</p>
+                                    )}
+                                    {item.subtitle && (
+                                        <p className={`change-font ${styles.subtitle}`}>{item.subtitle}</p>
+                                    )}
                                 </div>
                             </div>
                         </div>

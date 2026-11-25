@@ -15,8 +15,12 @@
 /* thin lines (SVG) over the green glow; AVIF keeps the dark gradient smooth, WebP for older browsers */
 .glow {
   background-image: url('../../assets/hero-lines.svg'), url('../../assets/hero-glow.webp');
-  background-image: url('../../assets/hero-lines.svg'),
-    image-set(url('../../assets/hero-glow.avif') type('image/avif'), url('../../assets/hero-glow.webp') type('image/webp'));
+  background-image:
+    url('../../assets/hero-lines.svg'),
+    image-set(
+      url('../../assets/hero-glow.avif') type('image/avif'),
+      url('../../assets/hero-glow.webp') type('image/webp')
+    );
 }
 
 .dark {

@@ -14,7 +14,7 @@ const STAR = 0.46;
 function Star({size}) {
     return (
         <svg width={size} height={size} viewBox='0 0 100 100' aria-hidden='true'>
-            <path d='M50 0L64.3 35.7L100 50L64.3 64.3L50 100L35.7 64.3L0 50L35.7 35.7Z' fill='currentColor'/>
+            <path d='M50 0L64.3 35.7L100 50L64.3 64.3L50 100L35.7 64.3L0 50L35.7 35.7Z' fill='currentColor' />
         </svg>
     );
 }
@@ -49,7 +49,7 @@ export function GetInTouchBadge() {
                     fontWeight={800}
                     className={styles.text}
                 >
-                    <Star size={Math.round(size * STAR)}/>
+                    <Star size={Math.round(size * STAR)} />
                 </CircularText>
             </m.div>
         </Link>

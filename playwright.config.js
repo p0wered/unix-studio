@@ -1,15 +1,17 @@
 import {defineConfig} from '@playwright/test';
 
 const PORT = 4173;
+// which build to serve: CI first serves the base branch's build to record the baseline, then this one
+const DIST = process.env.VISUAL_DIST ?? 'dist';
 
 export default defineConfig({
-    testDir: './tests/visual',
-    snapshotPathTemplate: '{testDir}/__screenshots__/{arg}{ext}',
+    testDir: './tests',
+    snapshotPathTemplate: '{testDir}/visual/__screenshots__/{arg}{ext}',
     fullyParallel: true,
     // one retry absorbs rare GPU raster noise in image filtering; a real change fails both attempts
     retries: 1,
-    reporter: [['list'], ['html', {open: 'never', outputFolder: 'tests/visual/report'}]],
-    outputDir: 'tests/visual/results',
+    reporter: [['list'], ['html', {open: 'never', outputFolder: 'tests/report'}]],
+    outputDir: 'tests/results',
     use: {
         baseURL: `http://localhost:${PORT}`,
         browserName: 'chromium',
@@ -22,7 +24,7 @@ export default defineConfig({
         toHaveScreenshot: {maxDiffPixels: 100, threshold: 0.01, animations: 'disabled', caret: 'hide'},
     },
     webServer: {
-        command: `node tests/visual/serve.mjs dist ${PORT}`,
+        command: `node tests/serve.mjs ${DIST} ${PORT}`,
         port: PORT,
         reuseExistingServer: !process.env.CI,
     },

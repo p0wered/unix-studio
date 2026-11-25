@@ -11,11 +11,11 @@ export function PageLayout({footer = false}) {
         <>
             <main id='main' tabIndex={-1}>
                 {/* dark, full-height placeholder so the page doesn't flash white while its chunk loads */}
-                <Suspense fallback={<div className='page-fallback'/>}>
-                    <Outlet/>
+                <Suspense fallback={<div className='page-fallback' />}>
+                    <Outlet />
                 </Suspense>
             </main>
-            {footer && <Footer/>}
+            {footer && <Footer />}
         </>
     );
 }

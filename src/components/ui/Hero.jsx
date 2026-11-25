@@ -20,7 +20,7 @@ export function Hero({background = 'glow', title, aside, text, wideTitle = false
         <section className={cx(styles.hero, styles[background], 'container')}>
             <div className={cx(styles.inner, wideTitle && styles.wide)}>
                 {title}
-                {aside ?? <HeroStar className={styles.starAside}/>}
+                {aside ?? <HeroStar className={styles.starAside} />}
             </div>
             <div className={styles.bottom}>
                 <m.p
@@ -32,7 +32,7 @@ export function Hero({background = 'glow', title, aside, text, wideTitle = false
                     {text}
                 </m.p>
                 <div>
-                    <GetInTouchBadge/>
+                    <GetInTouchBadge />
                 </div>
             </div>
         </section>

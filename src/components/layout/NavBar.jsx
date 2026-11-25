@@ -60,17 +60,27 @@ export function NavBar() {
 
     return (
         <>
-            <m.nav className={styles.nav} aria-label='Main' initial={{opacity: 0}} animate={{opacity: 1}} transition={{duration: 1, type: 'spring'}}>
+            <m.nav
+                className={styles.nav}
+                aria-label='Main'
+                initial={{opacity: 0}}
+                animate={{opacity: 1}}
+                transition={{duration: 1, type: 'spring'}}
+            >
                 <div>
-                    <NavLink className={`${styles.logo} primary-link`} to='/' onClick={closeMenu}>UNIXSTUDIO</NavLink>
+                    <NavLink className={`${styles.logo} primary-link`} to='/' onClick={closeMenu}>
+                        UNIXSTUDIO
+                    </NavLink>
                 </div>
                 <div className={`${styles.links} change-font`}>
                     {NAV_LINKS.map(({label, to}) => (
-                        <NavLink key={to} className='primary-link' to={to}>{label}</NavLink>
+                        <NavLink key={to} className='primary-link' to={to}>
+                            {label}
+                        </NavLink>
                     ))}
                 </div>
                 <div className={styles.menuIcon}>
-                    <Hamburger toggled={menuOpen} toggle={setMenuOpen} size={26} duration={0.3} label='Toggle menu'/>
+                    <Hamburger toggled={menuOpen} toggle={setMenuOpen} size={26} duration={0.3} label='Toggle menu' />
                 </div>
             </m.nav>
             <m.nav
@@ -90,7 +100,7 @@ export function NavBar() {
                                 <span className={`h2 ${styles.mobileLinkText}`}>{label}</span>
                             </NavLink>
                         </m.div>
-                        <Separator wide dark/>
+                        <Separator wide dark />
                     </Fragment>
                 ))}
             </m.nav>

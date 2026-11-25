@@ -21,15 +21,18 @@ export const PAGES = {
     },
     '/cases': {
         title: 'Cases — UNIXSTUDIO',
-        description: 'Take a look behind the scenes, and discover the untold stories behind our projects, lessons learned, work culture, and business curiosities.',
+        description:
+            'Take a look behind the scenes, and discover the untold stories behind our projects, lessons learned, work culture, and business curiosities.',
     },
     '/about': {
         title: 'About — UNIXSTUDIO',
-        description: 'We live by the code of passion: we combine human empathy and intelligent data to build products that work for people and for business.',
+        description:
+            'We live by the code of passion: we combine human empathy and intelligent data to build products that work for people and for business.',
     },
     '/services': {
         title: 'Services — UNIXSTUDIO',
-        description: 'Marketing and communication plans, branding, digital campaigns, programmatic advertising and marketing as a service.',
+        description:
+            'Marketing and communication plans, branding, digital campaigns, programmatic advertising and marketing as a service.',
     },
     '/contact': {
         title: 'Contact — UNIXSTUDIO',
@@ -43,12 +46,18 @@ export const NOT_FOUND = {
     noindex: true,
 };
 
+/** '/cases/' → '/cases' (static hosts often redirect folders to a trailing slash; the router accepts both) */
+export function normalizePath(pathname) {
+    return pathname.length > 1 ? pathname.replace(/\/+$/, '') : pathname;
+}
+
 export function pageMeta(pathname) {
-    return PAGES[pathname] ?? NOT_FOUND;
+    return PAGES[normalizePath(pathname)] ?? NOT_FOUND;
 }
 
 /** All head tags for a page, as [tag, attributes] pairs (rendered by the prerender script and PageMeta). */
-export function headTags(pathname) {
+export function headTags(rawPathname) {
+    const pathname = normalizePath(rawPathname);
     const meta = pageMeta(pathname);
     const url = SITE_URL && PAGES[pathname] ? SITE_URL + pathname : null;
     return [
@@ -59,7 +68,12 @@ export function headTags(pathname) {
         ['meta', {property: 'og:description', content: meta.description}],
         ['meta', {name: 'twitter:card', content: 'summary_large_image'}],
         ...(SITE_URL ? [['meta', {property: 'og:image', content: SITE_URL + OG_IMAGE}]] : []),
-        ...(url ? [['meta', {property: 'og:url', content: url}], ['link', {rel: 'canonical', href: url}]] : []),
+        ...(url
+            ? [
+                  ['meta', {property: 'og:url', content: url}],
+                  ['link', {rel: 'canonical', href: url}],
+              ]
+            : []),
         ...(meta.noindex ? [['meta', {name: 'robots', content: 'noindex'}]] : []),
     ];
 }

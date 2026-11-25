@@ -32,7 +32,7 @@ const cursorProps = {
  */
 function Cursor() {
     const finePointer = useMediaQuery('(hover: hover) and (pointer: fine)');
-    return finePointer ? <AnimatedCursor {...cursorProps}/> : null;
+    return finePointer ? <AnimatedCursor {...cursorProps} /> : null;
 }
 
 /** Everything inside the router: shared by the browser (BrowserRouter) and the prerender (StaticRouter). */
@@ -43,23 +43,25 @@ export function AppShell() {
         <LazyMotion features={domAnimation} strict>
             {/* "Reduce motion" in the OS: transform animations are skipped, fades stay */}
             <MotionConfig reducedMotion='user'>
-                <a href='#main' className='skip-link'>Skip to content</a>
-                <ScrollToTop/>
-                <PageMeta/>
-                <Cursor/>
+                <a href='#main' className='skip-link'>
+                    Skip to content
+                </a>
+                <ScrollToTop />
+                <PageMeta />
+                <Cursor />
                 <header>
-                    <NavBar/>
+                    <NavBar />
                 </header>
                 <Routes>
-                    <Route element={<PageLayout footer/>}>
-                        <Route path='/' element={<HomePage/>}/>
-                        <Route path='/cases' element={<CasesPage/>}/>
-                        <Route path='/about' element={<AboutPage/>}/>
+                    <Route element={<PageLayout footer />}>
+                        <Route path='/' element={<HomePage />} />
+                        <Route path='/cases' element={<CasesPage />} />
+                        <Route path='/about' element={<AboutPage />} />
                     </Route>
-                    <Route element={<PageLayout/>}>
-                        <Route path='/services' element={<ServicesPage/>}/>
-                        <Route path='/contact' element={<ContactPage/>}/>
-                        <Route path='*' element={<NotFoundPage/>}/>
+                    <Route element={<PageLayout />}>
+                        <Route path='/services' element={<ServicesPage />} />
+                        <Route path='/contact' element={<ContactPage />} />
+                        <Route path='*' element={<NotFoundPage />} />
                     </Route>
                 </Routes>
             </MotionConfig>
@@ -70,7 +72,7 @@ export function AppShell() {
 export default function App() {
     return (
         <BrowserRouter>
-            <AppShell/>
+            <AppShell />
         </BrowserRouter>
     );
 }

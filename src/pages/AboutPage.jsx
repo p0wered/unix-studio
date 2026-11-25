@@ -21,7 +21,15 @@ function AiSection() {
                     </p>
                 </div>
                 <div className={`${styles.aiItem} ${styles.aiImageItem}`}>
-                    <img className={styles.aiImage} src={AiImage} alt='' width={400} height={307} loading='lazy' decoding='async'/>
+                    <img
+                        className={styles.aiImage}
+                        src={AiImage}
+                        alt=''
+                        width={400}
+                        height={307}
+                        loading='lazy'
+                        decoding='async'
+                    />
                     <p className={styles.aiImageCaption}>BOOST YOUR BUSINESS</p>
                 </div>
                 <div className={styles.aiItem}>
@@ -35,7 +43,8 @@ function AiSection() {
             <div className={`${styles.aiOutro} flex-center`}>
                 <p className='change-font'>
                     User-oriented design has proved to bring lucrative business benefits. From improving brand awareness
-                    to increasing customer acquisition & retention to gaining market share – UX directly impacts business
+                    to increasing customer acquisition & retention to gaining market share – UX directly impacts
+                    business
                 </p>
             </div>
         </section>
@@ -46,7 +55,15 @@ function ImageSection() {
     return (
         <section className={`${styles.imageSection} container`}>
             <div className='flex-center'>
-                <img className={styles.image} src={AboutImg} alt='The Unix Studio team discussing a project at a laptop' width={1280} height={700} loading='lazy' decoding='async'/>
+                <img
+                    className={styles.image}
+                    src={AboutImg}
+                    alt='The Unix Studio team discussing a project at a laptop'
+                    width={1280}
+                    height={700}
+                    loading='lazy'
+                    decoding='async'
+                />
             </div>
         </section>
     );
@@ -56,13 +73,13 @@ function QuoteSection() {
     return (
         <section className={`${styles.quote} container`}>
             <div className={`${styles.quoteInner} flex-center`}>
-                <AnimatedHeadingLetters text='TESTIMONAL' as='h2' inView/>
+                <AnimatedHeadingLetters text='TESTIMONIAL' as='h2' inView />
                 <p className={`h3 change-font ${styles.quoteText}`}>
                     I have been hiring people in this space for a number of years
                 </p>
                 <p className={`h3 change-font ${styles.quoteText}`}>
-                    And I have never seen this level of professionalism. It really feels like
-                    you are working with a team that can get the job done
+                    And I have never seen this level of professionalism. It really feels like you are working with a
+                    team that can get the job done
                 </p>
             </div>
         </section>
@@ -77,7 +94,7 @@ const TEAM = CAROUSEL_CASES.map(({image}) => ({title: 'Eugene Massy', image}));
 function TeamSection() {
     return (
         <Reveal className={styles.team} variants={SLIDE_IN} transition={{duration: 1, type: 'spring', ease: EASE_OUT}}>
-            <Carousel items={TEAM}/>
+            <Carousel items={TEAM} />
         </Reveal>
     );
 }
@@ -89,15 +106,15 @@ export default function AboutPage() {
                 wideTitle
                 title={
                     <div>
-                        <AnimatedHeadingLetters text='ABOUT US' as='h1'/>
-                        <AnimatedHeading text='WE LIVE BY THE CODE OF PASSION' as='p'/>
+                        <AnimatedHeadingLetters text='ABOUT US' as='h1' />
+                        <AnimatedHeading text='WE LIVE BY THE CODE OF PASSION' as='p' />
                     </div>
                 }
                 text='We combine human empathy and intelligent data to provide the'
             />
-            <AiSection/>
-            <ImageSection/>
-            <QuoteSection/>
+            <AiSection />
+            <ImageSection />
+            <QuoteSection />
         </>
     );
 }

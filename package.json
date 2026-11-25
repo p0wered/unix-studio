@@ -3,13 +3,22 @@
   "version": "0.4.4",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=22.22"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build && vite build --ssr src/entry-server.jsx --outDir dist-ssr && node scripts/prerender.js",
-    "preview": "vite preview",
+    "preview": "node tests/serve.mjs dist 4173",
     "lint": "eslint .",
-    "test:visual": "npm run build && playwright test",
-    "test:visual:update": "npm run build && playwright test --update-snapshots"
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check:size": "node scripts/check-size.js",
+    "test": "npm run build && npm run check:size && playwright test",
+    "test:visual": "npm run build && playwright test visual",
+    "test:visual:update": "npm run build && playwright test visual --update-snapshots",
+    "test:a11y": "npm run build && playwright test a11y",
+    "test:lighthouse": "lhci autorun"
   },
   "dependencies": {
     "embla-carousel-react": "^8.6.0",
@@ -23,12 +32,14 @@
   "devDependencies": {
     "@axe-core/playwright": "^4.14.1",
     "@eslint/js": "^10.0.1",
+    "@lhci/cli": "^0.15.1",
     "@playwright/test": "^1.49.1",
     "@vitejs/plugin-react": "^6.3.0",
     "eslint": "^10.15.0",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.8",
     "globals": "^17.14.0",
+    "prettier": "^3.10.1",
     "vite": "^8.3.8"
   },
   "overrides": {

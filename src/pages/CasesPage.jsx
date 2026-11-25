@@ -53,9 +53,9 @@ const FILTER_PARAM = 'category';
 // Buttons: "all" + every category that has at least one case
 const FILTERS = [
     {id: 'all', label: 'ALL', count: CASE_STUDIES.length},
-    ...CASE_CATEGORIES
-        .map((c) => ({...c, count: CASE_STUDIES.filter((s) => s.category === c.id).length}))
-        .filter((c) => c.count > 0),
+    ...CASE_CATEGORIES.map((c) => ({...c, count: CASE_STUDIES.filter((s) => s.category === c.id).length})).filter(
+        (c) => c.count > 0,
+    ),
 ];
 
 /** Selected filter lives in the URL (?category=design) so it survives reloads and can be shared. */
@@ -79,7 +79,7 @@ function CaseCard({study, rightBorder}) {
                     <p className={`change-font ${styles.cardYear}`}>/{study.year}</p>
                 </div>
                 <p className={`change-font ${styles.cardText}`}>{study.text}</p>
-                <img className={styles.cardImage} src={study.image} alt={study.title} loading='lazy' decoding='async'/>
+                <img className={styles.cardImage} src={study.image} alt={study.title} loading='lazy' decoding='async' />
             </Reveal>
         </div>
     );
@@ -98,7 +98,9 @@ function CasesSection() {
                             className={`${styles.filterLink} change-font`}
                             aria-current={f.id === active ? 'page' : undefined}
                         >
-                            <p>{f.label} [{f.count}]</p>
+                            <p>
+                                {f.label} [{f.count}]
+                            </p>
                         </Link>
                     </div>
                 ))}
@@ -112,11 +114,13 @@ function CasesSection() {
                 </div>
                 {cases.map((study, i) => (
                     // with the featured cell taking the first column, every other card sits in the middle column
-                    <CaseCard key={study.id} study={study} rightBorder={i % 2 === 0}/>
+                    <CaseCard key={study.id} study={study} rightBorder={i % 2 === 0} />
                 ))}
             </div>
             <div className={`${styles.viewAll} flex-center`}>
-                <Link className='primary-link' to='/cases'>VIEW ALL CASES</Link>
+                <Link className='primary-link' to='/cases'>
+                    VIEW ALL CASES
+                </Link>
             </div>
         </section>
     );
@@ -130,15 +134,15 @@ export default function CasesPage() {
                 wideTitle
                 title={
                     <div>
-                        <AnimatedHeadingLetters text='OUR CASES' as='h1'/>
-                        <AnimatedHeadingLetters text='/SHOT' as='h1' tag='p' className={styles.outlined}/>
+                        <AnimatedHeadingLetters text='OUR CASES' as='h1' />
+                        <AnimatedHeadingLetters text='/SHOT' as='h1' tag='p' className={styles.outlined} />
                     </div>
                 }
-                aside={<AwardCircles/>}
+                aside={<AwardCircles />}
                 text='Take a look behind the scenes, and discover the untold stories behind our projects, lessons learned, work culture, and business curiosities.'
                 lightText
             />
-            <CasesSection/>
+            <CasesSection />
         </div>
     );
 }

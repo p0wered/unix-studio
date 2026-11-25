@@ -1,0 +1,76 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    name: Lint, build, size, accessibility, Lighthouse
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run format:check
+      - run: npm run build
+        env:
+          # repository variable (Settings → Secrets and variables → Actions → Variables): the site's address
+          VITE_SITE_URL: ${{ vars.SITE_URL }}
+      - run: npm run check:size
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test a11y
+      - run: npm run test:lighthouse
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: checks-report
+          path: |
+            tests/report
+            tests/lighthouse
+          retention-days: 14
+
+  visual:
+    # Screenshots depend on the OS and fonts, so no baseline is committed: the PR's base commit is built
+    # and photographed on the same runner, then the PR is compared against it.
+    name: Visual diff against the base branch
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - name: Build the base commit
+        run: |
+          git worktree add ../base ${{ github.event.pull_request.base.sha }}
+          cd ../base && npm ci && npm run build
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Baseline screenshots of the base commit
+        run: npx playwright test visual --update-snapshots
+        env:
+          VISUAL_DIST: ../base/dist
+      - run: npm run build
+      - name: Compare this PR with the baseline
+        run: npx playwright test visual
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-diff
+          path: |
+            tests/report
+            tests/results
+          retention-days: 14

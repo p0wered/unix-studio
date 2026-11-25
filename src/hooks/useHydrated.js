@@ -7,5 +7,9 @@ const noop = () => () => {};
  * For values the static HTML can't know (e.g. the query string), so hydration matches the HTML first.
  */
 export function useHydrated() {
-    return useSyncExternalStore(noop, () => true, () => false);
+    return useSyncExternalStore(
+        noop,
+        () => true,
+        () => false,
+    );
 }

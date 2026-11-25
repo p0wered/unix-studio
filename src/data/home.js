@@ -12,7 +12,7 @@ export const SERVICES = [
 /** The two cells next to "Get in touch" at the top of the stats grid. */
 export const HIGHLIGHT_STATS = [
     {title: 'Active users on marketplaces we’ve created', value: '1M'},
-    {title: 'Our clients raised owning to our design work', value: '$500M'},
+    {title: 'Our clients raised owing to our design work', value: '$500M'},
 ];
 
 export const STATS = [

@@ -47,7 +47,10 @@
   background-color: var(--border-dark);
   border: 1px solid transparent;
   border-radius: 120px;
-  transition: color 0.3s, background-color 0.3s, border-color 0.3s;
+  transition:
+    color 0.3s,
+    background-color 0.3s,
+    border-color 0.3s;
 }
 
 /* hover, and the currently selected filter */

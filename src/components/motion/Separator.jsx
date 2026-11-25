@@ -7,5 +7,5 @@ const GROW_TRANSITION = {duration: 0.8};
 /** 1px line that grows from the centre when scrolled into view. `wide` drops the side margins. */
 export function Separator({wide = false, dark = false}) {
     const className = [styles.separator, wide && styles.wide, dark && styles.dark].filter(Boolean).join(' ');
-    return <Reveal className={className} variants={GROW} transition={GROW_TRANSITION}/>;
+    return <Reveal className={className} variants={GROW} transition={GROW_TRANSITION} />;
 }

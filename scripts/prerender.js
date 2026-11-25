@@ -48,10 +48,14 @@ const escapeText = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
 
 /** <title> + meta tags: go where the template's <title> is. */
 function metaHtml(url) {
-    return headTags(url).map(([tag, attrs]) => {
-        const a = Object.entries(attrs).map(([k, v]) => `${k}="${escapeAttr(v)}"`).join(' ');
-        return `<${tag} ${a} data-page-meta>`;
-    }).join('\n  ');
+    return headTags(url)
+        .map(([tag, attrs]) => {
+            const a = Object.entries(attrs)
+                .map(([k, v]) => `${k}="${escapeAttr(v)}"`)
+                .join(' ');
+            return `<${tag} ${a} data-page-meta>`;
+        })
+        .join('\n  ');
 }
 
 /**
@@ -62,7 +66,7 @@ function chunkHtml(page) {
     const entry = Object.values(manifest).find((c) => c.isEntry);
     const entryFiles = chunkFiles(Object.keys(manifest).find((k) => manifest[k] === entry));
     const files = chunkFiles(page);
-    const css = [...files.css].filter((f) => !entryFiles.css.has(f));      // entry CSS is already in the template
+    const css = [...files.css].filter((f) => !entryFiles.css.has(f)); // entry CSS is already in the template
     const js = [...files.js].filter((f) => !entryFiles.js.has(f));
     return [
         ...css.map((f) => `<link rel="stylesheet" href="/${f}">`),
@@ -86,9 +90,13 @@ for (const {url, page, out} of ROUTES) {
 // robots.txt (+ sitemap when the site address is known)
 const robots = ['User-agent: *', 'Allow: /'];
 if (SITE_URL) {
-    const urls = Object.keys(PAGES).map((p) => `  <url><loc>${SITE_URL}${p}</loc></url>`).join('\n');
-    fs.writeFileSync(path.join(dist, 'sitemap.xml'),
-        `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`);
+    const urls = Object.keys(PAGES)
+        .map((p) => `  <url><loc>${SITE_URL}${p}</loc></url>`)
+        .join('\n');
+    fs.writeFileSync(
+        path.join(dist, 'sitemap.xml'),
+        `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`,
+    );
     robots.push(`Sitemap: ${SITE_URL}/sitemap.xml`);
     console.log('wrote sitemap.xml');
 } else {

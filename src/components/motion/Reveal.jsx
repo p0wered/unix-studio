@@ -11,9 +11,10 @@ import {REVEAL_TRANSITION, REVEAL_UP} from './presets';
  */
 export function Reveal({as = 'div', variants = REVEAL_UP, transition = REVEAL_TRANSITION, delay, inView, ...props}) {
     const Tag = m[as];
-    const trigger = inView === undefined
-        ? {whileInView: 'visible', viewport: {once: false}}
-        : {animate: inView ? 'visible' : 'hidden'};
+    const trigger =
+        inView === undefined
+            ? {whileInView: 'visible', viewport: {once: false}}
+            : {animate: inView ? 'visible' : 'hidden'};
     return (
         <Tag
             initial='hidden'
@@ -28,5 +29,5 @@ export function Reveal({as = 'div', variants = REVEAL_UP, transition = REVEAL_TR
 /** A child of <Reveal>: no observer of its own, follows the parent's hidden/visible state. */
 export function RevealItem({as = 'div', variants = REVEAL_UP, transition = REVEAL_TRANSITION, delay, ...props}) {
     const Tag = m[as];
-    return <Tag variants={variants} transition={delay ? {...transition, delay} : transition} {...props}/>;
+    return <Tag variants={variants} transition={delay ? {...transition, delay} : transition} {...props} />;
 }

@@ -22,19 +22,21 @@ import styles from './HomePage.module.css';
 function AboutSection() {
     return (
         <div>
-            <Separator/>
-            <img src={Vector1} className={styles.vector} draggable={false} alt=''/>
+            <Separator />
+            <img src={Vector1} className={styles.vector} draggable={false} alt='' />
             <div className={`${styles.about} container`}>
                 <div className={styles.aboutHeadings}>
-                    <AnimatedHeading text='LET’S FIND YOUR DESIGN PRODUCT' as='h2' inView/>
-                    <AnimatedHeading text='SAFE AND BENEFICIAL DESIGN FOR HUMANITY' as='h4' tag='p' inView/>
+                    <AnimatedHeading text='LET’S FIND YOUR DESIGN PRODUCT' as='h2' inView />
+                    <AnimatedHeading text='SAFE AND BENEFICIAL DESIGN FOR HUMANITY' as='h4' tag='p' inView />
                 </div>
                 <Reveal className={`${styles.aboutText} change-font`}>
                     <p className={styles.narrow}>
                         We build engaging user experience for early-stage startups by connecting the dots between users’
                         needs and the client’s business model
                     </p>
-                    <Link className='primary-link' to='/about'>See details</Link>
+                    <Link className='primary-link' to='/about'>
+                        See details
+                    </Link>
                 </Reveal>
             </div>
         </div>
@@ -44,17 +46,17 @@ function AboutSection() {
 function ServicesSection() {
     return (
         <div>
-            <Separator/>
+            <Separator />
             <div className={`${styles.services} container`}>
                 {SERVICES.map((title) => (
                     <div key={title}>
                         <Link to='/services' className={styles.service}>
                             <div className={styles.serviceTitle}>
-                                <AnimatedHeading text={title} as='h3' inView/>
+                                <AnimatedHeading text={title} as='h3' inView />
                             </div>
-                            <img src={ArrowButton} className={styles.serviceArrow} alt=''/>
+                            <img src={ArrowButton} className={styles.serviceArrow} alt='' />
                         </Link>
-                        <Separator wide/>
+                        <Separator wide />
                     </div>
                 ))}
             </div>
@@ -69,10 +71,10 @@ function ProjectSection() {
     return (
         <div className={`${styles.project} container`}>
             <div className={styles.projectHeading}>
-                <AnimatedHeading text='BEHOLD OUR GREATEST PROJECT EVER' as='h2' inView/>
+                <AnimatedHeading text='BEHOLD OUR GREATEST PROJECT EVER' as='h2' inView />
             </div>
             <Reveal variants={ZOOM_IN} transition={{duration: 0.7}}>
-                <ParallaxImage image={project.image} speed={-12} className={styles.projectImage}/>
+                <ParallaxImage image={project.image} speed={-12} className={styles.projectImage} />
             </Reveal>
             <Reveal className={styles.projectCaption} variants={FADE} transition={{duration: 0.4, delay: 0.1}}>
                 <div className={styles.projectName}>
@@ -94,7 +96,7 @@ function MarqueeRow({velocity, className = ''}) {
         <ParallaxText baseVelocity={velocity}>
             <div className={`${styles.marqueeRow} ${className}`}>
                 <span className='h2'>UNIXSTUDIO</span>
-                <img className={styles.marqueeStar} src={StarDarkImg} alt='' draggable={false}/>
+                <img className={styles.marqueeStar} src={StarDarkImg} alt='' draggable={false} />
             </div>
         </ParallaxText>
     );
@@ -104,14 +106,14 @@ function CasesSection() {
     return (
         <div className={styles.cases}>
             <div className={styles.marquee}>
-                <MarqueeRow velocity={3}/>
-                <MarqueeRow velocity={-3} className={styles.marqueeSecond}/>
+                <MarqueeRow velocity={3} />
+                <MarqueeRow velocity={-3} className={styles.marqueeSecond} />
             </div>
             <div>
                 <div className={`${styles.casesHeading} container`}>
-                    <AnimatedHeading text='WITNESS THE BEAUTY' as='h2' inView/>
+                    <AnimatedHeading text='WITNESS THE BEAUTY' as='h2' inView />
                     <div className={styles.casesSubheading}>
-                        <AnimatedHeading text='SAFE AND BENEFICIAL DESIGN FOR HUMANITY' as='h4' tag='p' inView/>
+                        <AnimatedHeading text='SAFE AND BENEFICIAL DESIGN FOR HUMANITY' as='h4' tag='p' inView />
                     </div>
                 </div>
                 <Reveal
@@ -119,7 +121,7 @@ function CasesSection() {
                     variants={SLIDE_IN}
                     transition={{duration: 1, type: 'spring', ease: EASE_OUT}}
                 >
-                    <Carousel items={CAROUSEL_CASES}/>
+                    <Carousel items={CAROUSEL_CASES} />
                 </Reveal>
             </div>
         </div>
@@ -131,21 +133,23 @@ function CeoSection() {
         <div className={styles.ceo}>
             <div className={`${styles.ceoInner} container`}>
                 <div className='flex-center'>
-                    <AnimatedHeading text='ABOUT CEO' as='h2' inView/>
+                    <AnimatedHeading text='ABOUT CEO' as='h2' inView />
                 </div>
                 <div className={styles.ceoRow}>
-                    <HeroStar replay className={styles.ceoStar}/>
+                    <HeroStar replay className={styles.ceoStar} />
                     <div>
-                        <Testimonial review={CEO_REVIEW}/>
+                        <Testimonial review={CEO_REVIEW} />
                     </div>
                 </div>
                 <div className={`${styles.ceoOutro} change-font container`}>
                     <Reveal as='p' className={styles.narrow}>
-                        Dont’t wait any longer, let’s unleash your imagination and create something extraordinary
+                        Don’t wait any longer, let’s unleash your imagination and create something extraordinary
                         together
                     </Reveal>
                     <Reveal>
-                        <Link to='/contact' className='primary-link'>Catch a glimse!</Link>
+                        <Link to='/contact' className='primary-link'>
+                            Catch a glimpse!
+                        </Link>
                     </Reveal>
                 </div>
             </div>
@@ -164,7 +168,7 @@ function StatsSection() {
         <div className={`${styles.stats} container`}>
             <div>
                 <div className={styles.statsHeading}>
-                    <AnimatedHeadingLetters text='WE ARE' as='h1' tag='h2' inView/>
+                    <AnimatedHeadingLetters text='WE ARE' as='h1' tag='h2' inView />
                     <m.div
                         className={styles.worthyRow}
                         initial={{translateX: offset}}
@@ -179,29 +183,31 @@ function StatsSection() {
                         >
                             Born in UNIX
                         </m.p>
-                        <AnimatedHeadingLetters text='WORTHY' as='h1' tag='p' inView/>
+                        <AnimatedHeadingLetters text='WORTHY' as='h1' tag='p' inView />
                     </m.div>
                 </div>
             </div>
             <div className={styles.statsGrid}>
-                <StatContactCell/>
-                <StatCell ref={firstCellRef} inView={firstCellInView} stat={HIGHLIGHT_STATS[0]} tall leftColumn/>
-                <StatCell stat={HIGHLIGHT_STATS[1]} tall wide/>
+                <StatContactCell />
+                <StatCell ref={firstCellRef} inView={firstCellInView} stat={HIGHLIGHT_STATS[0]} tall leftColumn />
+                <StatCell stat={HIGHLIGHT_STATS[1]} tall wide />
                 {STATS.map((stat, i) => (
-                    <StatCell key={stat.title} stat={stat} leftColumn={i % 2 === 0}/>
+                    <StatCell key={stat.title} stat={stat} leftColumn={i % 2 === 0} />
                 ))}
             </div>
             <div className={styles.clients}>
                 <div className={styles.clientsHeading}>
-                    <AnimatedHeading text='OUR CLIENTS' as='h1' tag='h2' inView/>
+                    <AnimatedHeading text='OUR CLIENTS' as='h1' tag='h2' inView />
                 </div>
-                <Reveal as='p' className='change-font'>ALL AROUND THE GLOBE</Reveal>
+                <Reveal as='p' className='change-font'>
+                    ALL AROUND THE GLOBE
+                </Reveal>
             </div>
             <div className={styles.reviews}>
-                <div className={styles.reviewsPlaceholder}/>
+                <div className={styles.reviewsPlaceholder} />
                 <div className={styles.review}>
                     <div>
-                        <Testimonial review={CLIENT_REVIEW} size='large'/>
+                        <Testimonial review={CLIENT_REVIEW} size='large' />
                     </div>
                 </div>
             </div>
@@ -213,15 +219,15 @@ export default function HomePage() {
     return (
         <div>
             <Hero
-                title={<AnimatedHeadingLetters text='UNIXSTUDIO DIGITAL AGENCY' as='h1'/>}
-                text='We won 50+ design awards in 2022 stand alone, some of which had us share the stage with Google, Netflix, and Spotify'
+                title={<AnimatedHeadingLetters text='UNIXSTUDIO DIGITAL AGENCY' as='h1' />}
+                text='We won 50+ design awards in 2022 alone, some of which had us share the stage with Google, Netflix, and Spotify'
             />
-            <AboutSection/>
-            <ServicesSection/>
-            <ProjectSection/>
-            <CasesSection/>
-            <CeoSection/>
-            <StatsSection/>
+            <AboutSection />
+            <ServicesSection />
+            <ProjectSection />
+            <CasesSection />
+            <CeoSection />
+            <StatsSection />
         </div>
     );
 }

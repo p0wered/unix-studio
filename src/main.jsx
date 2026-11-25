@@ -13,7 +13,7 @@ if (window.__VISUAL_TEST__) {
 const root = document.getElementById('root');
 const app = (
     <StrictMode>
-        <App/>
+        <App />
     </StrictMode>
 );
 

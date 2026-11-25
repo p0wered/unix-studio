@@ -39,13 +39,21 @@ async function settle(page) {
             return r.width > 0 && r.bottom > -innerHeight && r.top < innerHeight * 2;
         };
         const visible = [...document.images].filter(nearViewport);
-        const pending = visible.filter((img) => !img.complete)
-            .map((img) => new Promise((resolve) => { img.onload = img.onerror = resolve; }));
+        const pending = visible
+            .filter((img) => !img.complete)
+            .map(
+                (img) =>
+                    new Promise((resolve) => {
+                        img.onload = img.onerror = resolve;
+                    }),
+            );
         await Promise.race([Promise.all(pending), new Promise((resolve) => setTimeout(resolve, 5000))]);
         // fully decoded, not just downloaded (decoding="async" images can paint a frame later).
         // Only loaded ones: a lazy image that never starts loading (e.g. a carousel card off to the side)
         // would keep decode() pending forever.
-        const decoded = visible.filter((img) => img.complete && img.naturalWidth > 0).map((img) => img.decode().catch(() => {}));
+        const decoded = visible
+            .filter((img) => img.complete && img.naturalWidth > 0)
+            .map((img) => img.decode().catch(() => {}));
         await Promise.race([Promise.all(decoded), new Promise((resolve) => setTimeout(resolve, 3000))]);
     });
     await page.waitForLoadState('networkidle');
@@ -63,7 +71,9 @@ for (const vp of VIEWPORTS) {
 
         for (const p of PAGES) {
             test(p.name, async ({page}) => {
-                await page.addInitScript(() => { window.__VISUAL_TEST__ = true; });
+                await page.addInitScript(() => {
+                    window.__VISUAL_TEST__ = true;
+                });
                 await page.goto(p.path);
                 await page.addStyleTag({content: FREEZE_CSS});
                 await settle(page);
@@ -80,7 +90,9 @@ for (const vp of VIEWPORTS) {
 
         if (vp.width < 720) {
             test('mobile-menu', async ({page}) => {
-                await page.addInitScript(() => { window.__VISUAL_TEST__ = true; });
+                await page.addInitScript(() => {
+                    window.__VISUAL_TEST__ = true;
+                });
                 await page.goto('/');
                 await page.addStyleTag({content: FREEZE_CSS});
                 await settle(page);

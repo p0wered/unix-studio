@@ -1,0 +1,11 @@
+dist
+dist-ssr
+tests/visual/__screenshots__
+tests/report
+tests/results
+package-lock.json
+# third-party component copied from React Bits: keep it as published, so updates diff cleanly
+src/components/ui/CircularText.jsx
+src/components/ui/CircularText.css
+tests/lighthouse
+.lighthouseci
